@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+  <title>Score Game</title>
+</head>
+
+<body onselectstart="return false" class="body">
+  <div id="startGameButtonDiv">
+    <br><div id="startGameButton" onclick="startGame()">Start Game<br></div><br><hr>
+  </div>
+  <!-- <p id="start" onclick="doFunction()" onmouseup="removeDisplay('start')">Click Me</p> -->
+  <div id="main" style="display: none;">
+    <div id="lmao" onclick="add100()"></div>
+    <div id="rowOfSelect">
+      <div id="populationTab" onclick="showPopulation()">Population: 50 ⤵</div>
+      <div id="taxesTab" onclick="showTaxes()">Income: $5/s ⤵</div>
+      <div id="cash">Money: $0</div>
+      <hr id="hrId" class="hr">
+
+      <div id="populationDropdown2">
+        <div id="populationDropdown">
+          <br>
+          <div class="subunit" id="planets">Planets<div id="planetsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="continents">Continents<div id="continentsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="countries">Countries<div id="countriesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="states">States<div id="statesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="counties">Counties<div id="countiesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="megacities">Megacities<div id="megacitiesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="cities">Cities<div id="citiesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="towns">Towns<div id="townsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="districts">Districts<div id="districtsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="neighborhoods">Neighborhoods<div id="neighborhoodsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="streets" onclick="showStreets()">Streets<div id="streetsCount" class="subunitCount">1</div></div>
+        </div>
+        <div id="streetsInfo" style="display:none" class="populationInfo">
+          <h3>Streets</h3>
+          <p>You own 1 street.</p>
+          <p>Each street earns $5/second.</p>
+          <p>In total, you earn $5/second from your streets.</p>
+          <hr>
+          <p>Buying 1 street costs $50.</p>
+          <div id="cantAfford" style="display:none">Can't Afford</div>
+          <div id="buyStreet" style="display:none" onclick="buyStreets(false)">Buy 1 Street</div>
+          <div id="buyStreet2" style="display:none" onclick="buyStreets(true)">Buy 2 Streets</div>
+        </div>
+      </div>
+      
+      <div id="incomeDropdown">
+
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    var cash = 0;
+    var populationControlled = 0;
+    var taxRate = 0;
+    var income = 5;
+    
+    function changeDisplay(id, type) {
+      document.getElementById(id).style.display = type;
+    }
+    
+    function showStreets() {
+      changeDisplay("streetsInfo", "inline-block");
+    }
+
+    function calculateIncome() {
+      income = Number(document.getElementById("streetsCount").innerText) * 5;
+      document.getElementById("taxesTab").innerHTML = `Income: $${income}/s ⤵`;
+    }
+    
+    function buyStreets(buyMultiple) {
+      if (buyMultiple) {
+        let toBuy = Math.floor(cash/50);
+        cash -= toBuy*50;
+        let x = document.getElementById("streetsCount").innerText;
+        let y = Number(x) + toBuy;
+        document.getElementById("streetsCount").innerText = y;
+      }
+      else {
+        cash -= 50;
+        let x = document.getElementById("streetsCount").innerText;
+        let y = Number(x) + 1;
+        document.getElementById("streetsCount").innerText = y;
+      }
+      calculateIncome();
+    }
+
+    function showPopulation() {
+      changeDisplay("populationDropdown", "inline-block");
+      document.getElementById("taxesTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("taxesTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("taxesTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("populationTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("populationTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("populationTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+    }
+    function showTaxes() {
+      changeDisplay("")
+      changeDisplay("populationDropdown", "none");
+      document.getElementById("populationTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("populationTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("populationTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("taxesTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("taxesTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("taxesTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+    }
+
+    function startGame() {
+      changeDisplay("startGameButton", "none");
+      changeDisplay("main", "block");
+      doFunction();
+    }
+
+    function add100() {
+      let element = document.getElementById("score");
+      score+=100;
+      element.innerHTML = score;
+    }
+    
+    function removeDisplay(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    function doFunction() {
+      var element = document.getElementById("cash");
+      var inst = setInterval(change, 100);
+      function change() {
+        element.innerHTML = "Money: $" + cash;
+        cash += Math.floor(income/5);
+
+        if (cash<50) {
+          changeDisplay("cantAfford","inline-block");
+          changeDisplay("buyStreet","none");
+          changeDisplay("buyStreet2","none");
+        }
+        else {
+          changeDisplay("cantAfford","none");
+          changeDisplay("buyStreet","inline-block");
+          changeDisplay("buyStreet2","none");
+        }
+        if (cash>=100) {
+          let toBuy = Math.floor(cash/50);
+          document.getElementById("buyStreet2").innerHTML = "Buy " + toBuy + " Streets";
+          changeDisplay("buyStreet2","inline-block");
+        }
+      }
+    }
+  </script>
+</body>
+</html>
