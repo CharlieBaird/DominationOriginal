@@ -31,20 +31,34 @@
           <div class="subunit" id="cities">Cities<div id="citiesCount" class="subunitCount">0</div></div>
           <div class="subunit" id="towns">Towns<div id="townsCount" class="subunitCount">0</div></div>
           <div class="subunit" id="districts">Districts<div id="districtsCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="neighborhoods">Neighborhoods<div id="neighborhoodsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="neighborhoods" onclick="showNeighborhoods()">Neighborhoods<div id="neighborhoodsCount" class="subunitCount">0</div></div>
           <div class="subunit" id="streets" onclick="showStreets()">Streets<div id="streetsCount" class="subunitCount">1</div></div>
         </div>
+
         <div id="streetsInfo" style="display:none" class="populationInfo">
           <h3>Streets</h3>
-          <p>You own 1 street.</p>
+          <p id="ownXStreets">You own 1 street.</p>
           <p>Each street earns $5/second.</p>
-          <p>In total, you earn $5/second from your streets.</p>
+          <p id="totalXStreets">In total, you earn $5/second from your streets.</p>
           <hr>
           <p>Buying 1 street costs $50.</p>
-          <div id="cantAfford" style="display:none">Can't Afford</div>
-          <div id="buyStreet" style="display:none" onclick="buyStreets(false)">Buy 1 Street</div>
-          <div id="buyStreet2" style="display:none" onclick="buyStreets(true)">Buy 2 Streets</div>
+          <div id="cantAfford" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
+          <div id="buyStreet" style="display:none" onclick="buyStreets(false)" class="buyButton">Buy 1 Street</div>
+          <div id="buyStreet2" style="display:none" onclick="buyStreets(true)" class="buyButton2">Buy 2 Streets</div>
         </div>
+
+        <div id="neighborhoodsInfo" style="display:none" class="populationInfo">
+          <h3>Neighborhoods</h3>
+          <p id="ownXNeighborhoods">You own 0 neighborhoods.</p>
+          <p>Each neighborhood earns $30/s and 1 street per 5 seconds.</p>
+          <p id="totalXNeighborhoods">In total, you earn $0 and 0 streets per second from your neighborhoods.</p>
+          <hr>
+          <p>Buying 1 neighborhood costs $10,000 and 20 streets.</p>
+          <div id="cantAffordNeighborhood" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
+          <div id="buyNeighborhood" style="display:none" onclick="buyNeighborhoods(false)" class="buyButton">Buy 1 Neighborhood</div>
+          <div id="buyNeighborhood2" style="display:none" onclick="buyNeighborhoods(true)" class="buyButton2">Buy 2 Neighborhoods</div>
+        </div>
+
       </div>
       
       <div id="incomeDropdown">
@@ -54,6 +68,34 @@
   </div>
   
   <script>
+    //#region
+    var numPlanets = Number(document.getElementById("planetsCount").innerText);
+    var numContinents = Number(document.getElementById("continentsCount").innerText);
+    var numCountries = Number(document.getElementById("countriesCount").innerText);
+    var numStates = Number(document.getElementById("statesCount").innerText);
+    var numCounties = Number(document.getElementById("CountiesCount").innerText);
+    var numMegacities = Number(document.getElementById("megacitiesCount").innerText);
+    var numCities = Number(document.getElementById("citiesCount").innerText);
+    var numTowns = Number(document.getElementById("townsCount").innerText);
+    var numDistricts = Number(document.getElementById("districtsCount").innerText);
+    var numNeighborhoods = Number(document.getElementById("neighborhoodsCount").innerText);
+    var numStreets = Number(document.getElementById("streetsCount").innerText);
+
+
+    function updateCounts() {
+      numPlanets = Number(document.getElementById("planetsCount").innerText);
+      numContinents = Number(document.getElementById("continentsCount").innerText);
+      numCountries = Number(document.getElementById("countriesCount").innerText);
+      numStates = Number(document.getElementById("statesCount").innerText);
+      numCounties = Number(document.getElementById("CountiesCount").innerText);
+      numMegacities = Number(document.getElementById("megacitiesCount").innerText);
+      numCities = Number(document.getElementById("citiesCount").innerText);
+      numTowns = Number(document.getElementById("townsCount").innerText);
+      numDistricts = Number(document.getElementById("districtsCount").innerText);
+      numNeighborhoods = Number(document.getElementById("neighborhoodsCount").innerText);
+      numStreets = Number(document.getElementById("streetsCount").innerText);
+    }
+
     var cash = 0;
     var populationControlled = 0;
     var taxRate = 0;
@@ -64,11 +106,17 @@
     }
     
     function showStreets() {
+      changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("streetsInfo", "inline-block");
     }
 
+    function showNeighborhoods() {
+      changeDisplay("streetsInfo", "none");
+      changeDisplay("neighborhoodsInfo", "inline-block");
+    }
+
     function calculateIncome() {
-      income = Number(document.getElementById("streetsCount").innerText) * 5;
+      income = (Number(document.getElementById("streetsCount").innerText) * 5) + (Number(document.getElementById("neighborhoodsCount").innerText * 30));
       document.getElementById("taxesTab").innerHTML = `Income: $${income}/s ⤵`;
     }
     
@@ -77,16 +125,57 @@
         let toBuy = Math.floor(cash/50);
         cash -= toBuy*50;
         let x = document.getElementById("streetsCount").innerText;
-        let y = Number(x) + toBuy;
+        var y = Number(x) + toBuy;
         document.getElementById("streetsCount").innerText = y;
       }
       else {
         cash -= 50;
         let x = document.getElementById("streetsCount").innerText;
-        let y = Number(x) + 1;
+        var y = Number(x) + 1;
         document.getElementById("streetsCount").innerText = y;
       }
       calculateIncome();
+      document.getElementById("ownXStreets").innerHTML = `You own ${y} streets.`;
+      document.getElementById("totalXStreets").innerHTML = `In total, you earn $${y*5}/second from your streets.`;
+    }
+    function buyNeighborhoods(buyMultiple) {
+      if (buyMultiple) {
+        let streetsNum = Number(document.getElementById("streetsCount").innerText);
+        let toBuy = Math.floor(cash/10000);
+        let toBuy1 = Number(document.getElementById("streetsCount").innerText);
+        if (toBuy*20 > toBuy1) {
+          cash -= Math.floor(toBuy1/20)*10000
+          let x = document.getElementById("neighborhoodsCount").innerText;
+          var y = Number(x) + Math.floor(toBuy1/20);
+          let z = document.getElementById("streetsCount").innerText;
+          var z1 = Number(z) - Math.floor(toBuy1/20)*20;
+          document.getElementById("streetsCount").innerText = z1;
+          document.getElementById("neighborhoodsCount").innerText = y;
+        }
+        else {
+          cash -= toBuy*10000;
+          let x = document.getElementById("neighborhoodsCount").innerText;
+          var y = Number(x) + toBuy;
+          let z = document.getElementById("streetsCount").innerText;
+          var z1 = Number(z) - toBuy*20;
+          document.getElementById("streetsCount").innerText = z1;
+          document.getElementById("neighborhoodsCount").innerText = y;
+        }
+      }
+      else {
+        cash -= 50;
+        let x = document.getElementById("neighborhoodsCount").innerText;
+        var y = Number(x) + 1;
+        let z = document.getElementById("streetsCount").innerText;
+        var z1 = Number(z) - 20;
+        document.getElementById("streetsCount").innerText = z1;
+        document.getElementById("neighborhoodsCount").innerText = y;
+      }
+      calculateIncome();
+      document.getElementById("ownXNeighborhoods").innerHTML = `You own ${y} neighborhoods.`;
+      document.getElementById("totalXNeighborhoods").innerHTML = `In total, you earn $${y*30} and ${y} streets per second from your neighborhoods.`;
+      document.getElementById("ownXStreets").innerHTML = `You own ${z1} streets.`;
+      document.getElementById("totalXStreets").innerHTML = `In total, you earn $${z1*5} per second from your streets.`;
     }
 
     function showPopulation() {
@@ -99,7 +188,8 @@
       document.getElementById("populationTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
     }
     function showTaxes() {
-      changeDisplay("")
+      changeDisplay("streetsInfo", "none");
+      changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("populationDropdown", "none");
       document.getElementById("populationTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
       document.getElementById("populationTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
@@ -127,10 +217,13 @@
 
     function doFunction() {
       var element = document.getElementById("cash");
-      var inst = setInterval(change, 100);
+      var neighborhoodsNum = document.getElementById("neighborhoodsCount");
+      var inst = setInterval(change, 5); // update other stuff example cash
+      var inst2 = setInterval(change2, 5000); // every 5 seconds add so many streets from x neighborhoods
       function change() {
         element.innerHTML = "Money: $" + cash;
         cash += Math.floor(income/5);
+
 
         if (cash<50) {
           changeDisplay("cantAfford","inline-block");
@@ -147,6 +240,36 @@
           document.getElementById("buyStreet2").innerHTML = "Buy " + toBuy + " Streets";
           changeDisplay("buyStreet2","inline-block");
         }
+
+        if (cash>10000 && Number((document.getElementById("streetsCount").innerText) >= 20)) {
+          changeDisplay("cantAffordNeighborhood","none");
+          changeDisplay("buyNeighborhood","inline-block");
+          changeDisplay("buyNeighborhood2","none");
+        }
+        else {
+          changeDisplay("cantAffordNeighborhood","inline-block");
+          changeDisplay("buyNeighborhood","none");
+          changeDisplay("buyNeighborhood2","none");
+        }
+        if (cash>=20000) {
+          let toBuy = Math.floor(cash/10000);
+          let toBuy1 = Number(document.getElementById("streetsCount").innerText);
+          if (toBuy*20 > toBuy1 && toBuy1 > 40) {
+            document.getElementById("buyNeighborhood2").innerHTML = "Buy " + Math.floor(toBuy1/20) + " Neighborhoods";
+            changeDisplay("buyNeighborhood2","inline-block");
+          }
+        }
+      }
+      function change2() {
+        let neighborhoodsNumber = Number(neighborhoodsNum.innerText);
+        let x = document.getElementById("streetsCount").innerText;
+        let y = Number(x) + neighborhoodsNumber;
+        document.getElementById("streetsCount").innerText = y;
+        calculateIncome();
+        document.getElementById("ownXStreets").innerHTML = `You own ${y} streets.`;
+        document.getElementById("totalXStreets").innerHTML = `In total, you earn $${y*5}/second from your streets.`;
+
+        // console.log(neighborhoodsNum.innerText);
       }
     }
   </script>

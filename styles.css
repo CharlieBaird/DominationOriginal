@@ -48,44 +48,39 @@
   /* width: 25%; */
   margin-left: 2%;
   padding-left: 30px;
-  border-bottom: 1px solid rgba(187, 187, 187, 0.4);
-}
+  border-bottom: 1px solid rgba(187, 187, 187, 0.4);}
 .subunit:hover {
   background: rgb(245, 245, 245);}
 .subunitCount {
   float: right;
-  padding-right: 10px;
-}
+  padding-right: 10px;}
 #populationDropdown {
   display: inline-block;
-  width: 25%;
-}
+  width: 25%;}
 .populationInfo {
   vertical-align:top;
   padding-top:1%;
-  padding-left:5%;
-}
-#cantAfford {
+  padding-left:5%;}
+.cantAffordBuyButton {
   cursor: pointer;
   border: 1px solid rgba(187, 187, 187, 0.4);
   border-radius: 6px;
   padding: 5px;}
-#cantAfford:hover {
+.cantAffordBuyButton:hover {
   background: rgb(245, 245, 245);}
-
-#buyStreet {
+.buyButton {
   cursor: pointer;
   border: 1px solid rgba(187, 187, 187, 0.4);
   border-radius: 6px;
   padding: 5px;}
-#buyStreet:hover {
+.buyButton:hover {
   background: rgb(245, 245, 245);}
-#buyStreet2 {
+.buyButton2 {
   cursor: pointer;
   border: 1px solid rgba(187, 187, 187, 0.4);
   border-radius: 6px;
   padding: 5px;}
-#buyStreet2:hover {
+.buyButton2:hover {
   background: rgb(245, 245, 245);}
 
 
