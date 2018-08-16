@@ -12,13 +12,13 @@
   </div>
   <div id="main" style="display: none;">
     <div id="rowOfSelect">
-      <div id="populationTab" onclick="showPopulation()">Population: 50 ⤵</div>
-      <div id="taxesTab" onclick="showTaxes()">Income: $5/s ⤵</div>
+      <div id="incomeTab" onclick="showIncome()">Income: 5/s ⤵</div>
+      <div id="powerTab" onclick="showPower()">Power: 0 ⤵</div>
       <div id="cash">Money: $0</div>
       <hr id="hrId" class="hr">
 
-      <div id="populationDropdown2">
-        <div id="populationDropdown">
+      <div id="incomeDropdown2">
+        <div id="incomeDropdown">
           <br>
           <div class="subunit" id="planets">Planets<div id="planetsCount" class="subunitCount">0</div></div>
           <div class="subunit" id="continents">Continents<div id="continentsCount" class="subunitCount">0</div></div>
@@ -50,7 +50,7 @@
         </div>
 
 
-        <div id="streetsInfo" style="display:none" class="populationInfo">
+        <div id="streetsInfo" style="display:none" class="incomeInfo">
           <h3>Streets</h3>
           <p id="ownXStreets">You own 1 street.</p>
           <p>Each street earns $5/second.</p>
@@ -62,7 +62,7 @@
           <div id="buyStreet2" style="display:none" onclick="buyStreets(true)" class="buyButton2">Buy 2 Streets</div>
         </div>
 
-        <div id="neighborhoodsInfo" style="display:none" class="populationInfo">
+        <div id="neighborhoodsInfo" style="display:none" class="incomeInfo">
           <h3>Neighborhoods</h3>
           <p id="ownXNeighborhoods">You own 0 neighborhoods.</p>
           <p>Each neighborhood earns $30/s and 1 street per 5 seconds.</p>
@@ -74,7 +74,7 @@
           <div id="buyNeighborhood2" style="display:none" onclick="buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets')" class="buyButton2">Buy 2 Neighborhoods</div>
         </div>
 
-        <div id="districtsInfo" style="display:none" class="populationInfo">
+        <div id="districtsInfo" style="display:none" class="incomeInfo">
             <h3>Districts</h3>
             <p id="ownXDistricts">You own 0 districts.</p>
             <p>Each district earns $250/s and 1 neighborhood per 5 seconds.</p>
@@ -143,66 +143,6 @@
       return numStr;
     }
 
-    // function friendlyNum(num) {
-    //   var num = numberToString(num);
-    //   console.log(num)l
-    //   let friendlyList = ["M", "B", "T", " Quad", " Quint", " Sext", " Sept", " Oct", " Non", "*10<sup>33</sup>", "*10<sup>36</sup>", "*10<sup>39</sup>", "*10<sup>42</sup>", "*10<sup>45</sup>", "*10<sup>48</sup>", "*10<sup>51</sup>", "*10<sup>54</sup>", "*10<sup>57</sup>", "*10<sup>60</sup>", "*10<sup>63</sup>", "*10<sup>66</sup>", "*10<sup>69</sup>", "*10<sup>72</sup>", "*10<sup>75</sup>", "*10<sup>78</sup>", "*10<sup>81</sup>", "*10<sup>84</sup>", "*10<sup>87</sup>", "*10<sup>90</sup>", "*10<sup>93</sup>", "*10<sup>96</sup>", "*10<sup>99</sup>", "*10<sup>102</sup>"];
-    //   if (String(num).length > 5) {
-    //     var length = (Math.floor(Number(String(num).length-1)/3))-2; //issue here somewhere
-    //     let remainder = String(num).length%3;
-    //     console.log(friendlyList[length]);
-
-    //     let num2 = String(num).substr(0,4)
-
-    //     let myVar = String(num).search(".");
-    //     let myNum = 9.7
-    //     let myVar2 = String(myNum).search("0");
-    //     if (String(num).search(".") != 0) {
-    //       let word1 = String(num).substr(0,1);
-    //       let word2 = String(num).substr(2,num.length);
-    //       num = word1 + word2;
-    //       // console.log("word1 is -" + word1 + "- word2 is -" + word2 + "-" + num);
-    //     }
-
-    //     if (remainder == 0) {
-    //       let str1 = num2.substr(0,3);
-    //       let str2 = num2.substr(3,1);
-    //       let str3 = (str1 + "." + str2);
-    //       str3 = str3 + friendlyList[length];
-    //       if (length > 10) {
-    //         console.log(friendlyList[length]);
-    //       }
-    //       return (str3);
-    //     }
-    //     else if (remainder == 1) {
-    //       let str1 = num2.substr(0,1);
-    //       let str2 = num2.substr(1,3);
-    //       let str3 = (str1 + "." + str2);
-    //       str3 = str3 + friendlyList[length];
-    //       if (length > 10) {
-    //         console.log(friendlyList[length]);
-    //       }
-    //       return (str3);
-    //     }
-    //     else if (remainder == 2) {
-    //       let str1 = num2.substr(0,2);
-    //       let str2 = num2.substr(2,2);
-    //       let str3 = (str1 + "." + str2);
-    //       str3 = str3 + friendlyList[length];
-    //       if (length > 10) {
-    //         console.log(friendlyList[length]);
-    //       }
-    //       return (str3);
-    //     }
-    //     else {
-    //       return false;
-    //     }
-    //   }
-    //   else {
-    //     return (num);
-    //   }
-    // }
-
     function updateCounts() {
       numPlanets = Number(document.getElementById("planetsCount").innerText);
       numContinents = Number(document.getElementById("continentsCount").innerText);
@@ -218,8 +158,7 @@
     }
 
     var cash = 0;
-    var populationControlled = 0;
-    var taxRate = 0;
+    var power = 0;
     var income = 5;
     
     function changeDisplay(id, type) {
@@ -249,7 +188,7 @@
 
     function calculateIncome() {
       income = numStreets * 5 + numNeighborhoods * 30 + numDistricts * 250;
-      document.getElementById("taxesTab").innerHTML = `Income: $${friendlyNum(income)}/s ⤵`;
+      document.getElementById("incomeTab").innerHTML = `Income: $${friendlyNum(income)}/s ⤵`;
 
       // var incomePlanets = 0;
       // var incomeContinents = 0;
@@ -369,30 +308,30 @@
       document.getElementById("streetsCount").innerHTML = friendlyNum(numStreets);
     }
 
-    function showPopulation() {
+    function showIncome() {
       changeDisplay("streetsInfo", "inline-block");
-      changeDisplay("populationDropdown", "inline-block");
+      changeDisplay("incomeDropdown", "inline-block");
       changeDisplay("progressBars2", "inline-block");
-      document.getElementById("taxesTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("taxesTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("taxesTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("populationTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("populationTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("populationTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("powerTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("powerTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("powerTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("incomeTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
     }
-    function showTaxes() {
+    function showPower() {
       changeDisplay("streetsInfo", "none");
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("districtsInfo", "none");
 
-      changeDisplay("populationDropdown", "none");
+      changeDisplay("incomeDropdown", "none");
       changeDisplay("progressBars2", "none");
-      document.getElementById("populationTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("populationTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("populationTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("taxesTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("taxesTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("taxesTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("incomeTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("incomeTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("powerTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("powerTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("powerTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
     }
     function startGame() {
       console.log("starting");
