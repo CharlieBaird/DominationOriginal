@@ -32,6 +32,23 @@
           <div class="subunit" id="neighborhoods" onclick="showNeighborhoods()">Neighborhoods<div id="neighborhoodsCount" class="subunitCount">0</div></div>
           <div class="subunit" id="streets" onclick="showStreets()">Streets<div id="streetsCount" class="subunitCount">1</div></div>
         </div>
+        <div id="progressBars2">
+        <div id="progressBars">
+          <div class="progressBarClassBox" id="progressTowns" style="display: none">
+              <div class="progressBarClass" id="progressTownsBar">&nbsp;</div>
+          </div>
+          <div class="progressBarClassBox" id="progressDistricts">
+              <div class="progressBarClass" id="progressDistrictsBar">&nbsp;</div>
+          </div>
+          <div class="progressBarClassBox" id="progressNeighborhoods">
+            <div class="progressBarClass" id="progressNeighborhoodsBar">&nbsp;</div>
+          </div>
+          <div id="progressBlank">
+            <div id="progressBlankBar">&nbsp;</div>
+          </div>
+        </div>
+        </div>
+
 
         <div id="streetsInfo" style="display:none" class="populationInfo">
           <h3>Streets</h3>
@@ -89,6 +106,20 @@
     var numDistricts = Number(document.getElementById("districtsCount").innerText);
     var numNeighborhoods = Number(document.getElementById("neighborhoodsCount").innerText);
     var numStreets = Number(document.getElementById("streetsCount").innerText);
+    var incomePlanets = 0;
+    var incomeContinents = 0;
+    var incomeCountries = 0;
+    var incomeStates = 0;
+    var incomeCounties = 0;
+    var incomeMegacities = 0;
+    var incomeCities = 0;
+    var incomeTowns = 0;
+    var incomeDistricts = 0;
+    var incomeNeighborhoods = 0;
+    var incomeStreets = 0;
+
+
+
     function numberToString(num) {
       let numStr = String(num);
       if (Math.abs(num) < 1.0) {
@@ -113,12 +144,16 @@
     }
 
     function friendlyNum(num) {
+      throw("test");
+      console.log(num);
       var num = numberToString(num);
       console.log(num);
-      let friendlyList = ["M", "B", "T", " Quad", " Quint", " Sext", " Sept", " Oct", " Non", "*10<sup>33</sup>"];
+      let friendlyList = ["M", "B", "T", " Quad", " Quint", " Sext", " Sept", " Oct", " Non", "*10<sup>33</sup>", "*10<sup>36</sup>", "*10<sup>39</sup>", "*10<sup>42</sup>", "*10<sup>45</sup>", "*10<sup>48</sup>", "*10<sup>51</sup>", "*10<sup>54</sup>", "*10<sup>57</sup>", "*10<sup>60</sup>", "*10<sup>63</sup>", "*10<sup>66</sup>", "*10<sup>69</sup>", "*10<sup>72</sup>", "*10<sup>75</sup>", "*10<sup>78</sup>", "*10<sup>81</sup>", "*10<sup>84</sup>", "*10<sup>87</sup>", "*10<sup>90</sup>", "*10<sup>93</sup>", "*10<sup>96</sup>", "*10<sup>99</sup>", "*10<sup>102</sup>"];
       if (String(num).length > 5) {
         var length = (Math.floor(Number(String(num).length-1)/3))-2; //issue here somewhere
         let remainder = String(num).length%3;
+        console.log(friendlyList[length]);
+
         let num2 = String(num).substr(0,4)
 
         let myVar = String(num).search(".");
@@ -136,6 +171,9 @@
           let str2 = num2.substr(3,1);
           let str3 = (str1 + "." + str2);
           str3 = str3 + friendlyList[length];
+          if (length > 10) {
+            console.log(friendlyList[length]);
+          }
           return (str3);
         }
         else if (remainder == 1) {
@@ -143,6 +181,9 @@
           let str2 = num2.substr(1,3);
           let str3 = (str1 + "." + str2);
           str3 = str3 + friendlyList[length];
+          if (length > 10) {
+            console.log(friendlyList[length]);
+          }
           return (str3);
         }
         else if (remainder == 2) {
@@ -150,6 +191,9 @@
           let str2 = num2.substr(2,2);
           let str3 = (str1 + "." + str2);
           str3 = str3 + friendlyList[length];
+          if (length > 10) {
+            console.log(friendlyList[length]);
+          }
           return (str3);
         }
         else {
@@ -208,6 +252,18 @@
     function calculateIncome() {
       income = numStreets * 5 + numNeighborhoods * 30 + numDistricts * 250;
       document.getElementById("taxesTab").innerHTML = `Income: $${friendlyNum(income)}/s ⤵`;
+
+      // var incomePlanets = 0;
+      // var incomeContinents = 0;
+      // var incomeCountries = 0;
+      // var incomeStates = 0;
+      // var incomeCounties = 0;
+      // var incomeMegacities = 0;
+      // var incomeCities = 0;
+      // var incomeTowns = 0;
+      incomeDistricts = numDistricts*250;
+      incomeNeighborhoods = numNeighborhoods*30;
+      incomeStreets = numStreets*5;
     }
     
     function buyStreets(buyMultiple) {
@@ -310,13 +366,15 @@
       // document.getElementById("megacitiesCount").innerText = friendlyNum(numMegacities);
       // document.getElementById("citiesCount").innerText = friendlyNum(numCities);
       // document.getElementById("townsCount").innerText = friendlyNum(numTowns);
-      document.getElementById("districtsCount").innerText = friendlyNum(numDistricts);
-      document.getElementById("neighborhoodsCount").innerText = friendlyNum(numNeighborhoods);
-      document.getElementById("streetsCount").innerText = friendlyNum(numStreets);
+      document.getElementById("districtsCount").innerHTML = friendlyNum(numDistricts);
+      document.getElementById("neighborhoodsCount").innerHTML = friendlyNum(numNeighborhoods);
+      document.getElementById("streetsCount").innerHTML = friendlyNum(numStreets);
     }
 
     function showPopulation() {
+      changeDisplay("streetsInfo", "inline-block");
       changeDisplay("populationDropdown", "inline-block");
+      changeDisplay("progressBars2", "inline-block");
       document.getElementById("taxesTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
       document.getElementById("taxesTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
       document.getElementById("taxesTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
@@ -327,7 +385,10 @@
     function showTaxes() {
       changeDisplay("streetsInfo", "none");
       changeDisplay("neighborhoodsInfo", "none");
+      changeDisplay("districtsInfo", "none");
+
       changeDisplay("populationDropdown", "none");
+      changeDisplay("progressBars2", "none");
       document.getElementById("populationTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
       document.getElementById("populationTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
       document.getElementById("populationTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
@@ -454,38 +515,58 @@
     }
     var alreadyDid = true;
     function doFunction() {
+      console.log("starting");
+
       var element = document.getElementById("cash");
-      
-      var inst = setInterval(change, 5); // update other stuff example cash
-      var inst2 = setInterval(change2, 5000); // every 5 seconds add so many streets from x neighborhoods
+      var accessVarNeighborhoods = 1;
+      var accessVarDistricts = 1;
+
+      var inst = setInterval(change, 1); // update other stuff example cash
       function change() {
-        cash += Math.floor(income/5);
-        let friendlyCash = friendlyNum(cash);
-        element.innerHTML = "Money: $" + friendlyCash;
+        cash += Math.floor(incomeStreets/5);
+        element.innerHTML = "Money: $" + friendlyNum(cash);
 
         updateDocumentCounts();
         calculateIncome();
         changeBuyDisplay("streets");
         changeBuyDisplay("neighborhoods");
         changeBuyDisplay("districts");
-
-        if (element.innerHTML == "Money: $NaN" && alreadyDid) {
-          alert(element.innerHTML);
-          alert(cash);
-          alreadyDid = false;
+        
+        if (numNeighborhoods>0) {
+          accessVarNeighborhoods += 1;
+          move("progressNeighborhoodsBar", (accessVarNeighborhoods/2), accessVarNeighborhoods);
+          if (accessVarNeighborhoods == 200) {
+            numStreets += (numNeighborhoods);
+            cash += Math.floor(incomeNeighborhoods);
+            accessVarNeighborhoods = 0;
+          }
         }
-      }
 
-      function change2() {
-        numStreets += Number(numNeighborhoods);
-        numNeighborhoods += Number(numDistricts);
-        calculateIncome();
-        updateDocumentCounts();
+        if (numDistricts > 0) {
+          accessVarDistricts += 1;
+          move("progressDistrictsBar", ((accessVarDistricts/2)), accessVarDistricts);
+          if (accessVarDistricts == 200) {
+            numNeighborhoods += (numDistricts);
+            cash += Math.floor(incomeDistricts);
+            accessVarDistricts = 0;
+          }
+        }
+
         document.getElementById("ownXStreets").innerHTML = `You own ${friendlyNum(numStreets)} streets.`;
         document.getElementById("totalXStreets").innerHTML = `In total, you earn $${friendlyNum(numStreets*5)}/second from your streets.`;
         document.getElementById("ownXNeighborhoods").innerHTML = `You own ${friendlyNum(numNeighborhoods)} neighborhoods.`;
         document.getElementById("totalXNeighborhoods").innerHTML = `In total, you earn $${friendlyNum(numNeighborhoods*30)}/second and ${friendlyNum(numNeighborhoods)} streets per 5 seconds from your neighborhoods.`;
+
+        if (numNeighborhoods > 0) {changeDisplay("progressNeighborhoods", "inline-block");}
+        else {changeDisplay("progressNeighborhoods", "none");}
+        if (numDistricts > 0) {changeDisplay("progressDistricts", "inline-block");}
+        else {changeDisplay("progressDistricts", "none");}
+
       }
+    }
+    function move(id, width, accessVar) {
+      var elem = document.getElementById(id); 
+      elem.style.width = width + '%'; 
     }
   </script>
 </body>

@@ -24,7 +24,9 @@
   border-right: 1px solid rgba(187, 187, 187, 0);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 5px;}
+  padding: 5px;
+  /* color:rgb(70, 70, 255) */
+}
 #taxesTab:hover {
   background: rgb(245, 245, 245);}
 #populationTab {
@@ -36,7 +38,9 @@
   border-right: 1px solid rgba(187, 187, 187, 0.4);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 5px;}
+  padding: 5px;
+  /* color:rgb(70, 70, 255) */
+}
 #populationTab:hover {
   background: rgb(245, 245, 245);}
 #cash {
@@ -47,20 +51,27 @@
   cursor: pointer;
   /* width: 25%; */
   margin-left: 2%;
-  padding-left: 30px;
-  border-bottom: 1px solid rgba(187, 187, 187, 0.4);}
+  /* padding-left: 30px; */
+  border-bottom: 1px solid rgba(187, 187, 187, 0.4);
+  border-top: 1px solid rgba(187, 187, 187, 0);
+  border-left: 1px solid rgba(187, 187, 187, 0);
+  border-right: 1px solid rgba(187, 187, 187, 0);
+}
 .subunit:hover {
   background: rgb(245, 245, 245);}
 .subunitCount {
   float: right;
-  padding-right: 10px;}
+  /* padding-right: 10px; */
+}
 #populationDropdown {
   display: inline-block;
-  width: 25%;}
+  width: 20%;
+}
 .populationInfo {
   vertical-align:top;
   padding-top:1%;
-  padding-left:5%;}
+  padding-left:1%;
+}
 .cantAffordBuyButton {
   cursor: pointer;
   border: 1px solid rgba(187, 187, 187, 0.4);
@@ -82,7 +93,36 @@
   padding: 5px;}
 .buyButton2:hover {
   background: rgb(245, 245, 245);}
+#progressBars2 {
+  width: 10%;
+  display: inline-block;
+  padding-left: 1%;
+  height: 5%;
 
+}
+#progressBars {
+  vertical-align:top;
+  padding-top:1%;
+  position: relative;
+  /* font-size:20px; */
+}
+#progressBlank {
+  margin-bottom:0px;
+}
+.progressBarClassBox {
+  cursor: pointer;
+  border: 1px solid rgba(187, 187, 187, 0.4);
+  border-radius: 3px;
+  background-color:lightgray;
+  width: 100%;
+
+  /* height: 1%; */
+  /* margin-bottom:10px; */
+}
+.progressBarClass {
+  width: 1%;
+  background-color:lightgreen;
+}
 
 
 
