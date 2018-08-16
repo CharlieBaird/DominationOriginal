@@ -25,8 +25,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 5px;
-  /* color:rgb(70, 70, 255) */
-}
+  /* color:rgb(70, 70, 255) */}
 #powerTab:hover {
   background: rgb(245, 245, 245);}
 #incomeTab {
@@ -39,11 +38,14 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 5px;
-  /* color:rgb(70, 70, 255) */
-}
+  /* color:rgb(70, 70, 255) */}
 #incomeTab:hover {
   background: rgb(245, 245, 245);}
 #cash {
+  cursor: default;
+  margin-left: 2%;
+  display: inline-block;}
+#power {
   cursor: default;
   margin-left: 2%;
   display: inline-block;}
@@ -55,23 +57,22 @@
   border-bottom: 1px solid rgba(187, 187, 187, 0.4);
   border-top: 1px solid rgba(187, 187, 187, 0);
   border-left: 1px solid rgba(187, 187, 187, 0);
-  border-right: 1px solid rgba(187, 187, 187, 0);
-}
+  border-right: 1px solid rgba(187, 187, 187, 0);}
 .subunit:hover {
   background: rgb(245, 245, 245);}
 .subunitCount {
   float: right;
-  /* padding-right: 10px; */
-}
+  /* padding-right: 10px; */}
 #incomeDropdown {
   display: inline-block;
-  width: 20%;
-}
+  width: 20%;}
 .incomeInfo {
   vertical-align:top;
   padding-top:1%;
-  padding-left:1%;
-}
+  padding-left:1%;}
+#powerDropdown {
+  display: inline-block;
+  width: 20%;}
 .cantAffordBuyButton {
   cursor: pointer;
   border: 1px solid rgba(187, 187, 187, 0.4);
@@ -97,18 +98,14 @@
   width: 10%;
   display: inline-block;
   padding-left: 1%;
-  height: 5%;
-
-}
+  height: 5%;}
 #progressBars {
   vertical-align:top;
   padding-top:1%;
   position: relative;
-  /* font-size:20px; */
-}
+  /* font-size:20px; */}
 #progressBlank {
-  margin-bottom:0px;
-}
+  margin-bottom:0px;}
 .progressBarClassBox {
   border: 1px solid rgba(187, 187, 187, 0.4);
   border-radius: 3px;
@@ -116,12 +113,10 @@
   width: 100%;
 
   /* height: 1%; */
-  /* margin-bottom:10px; */
-}
+  /* margin-bottom:10px; */}
 .progressBarClass {
   width: 1%;
-  background-color:lightgreen;
-}
+  background-color:lightgreen;}
 
 
 

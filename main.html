@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- <html oncontextmenu="return false"> -->
 <html>
 <head>
   <link rel="stylesheet" href="styles.css">
@@ -13,8 +14,10 @@
   <div id="main" style="display: none;">
     <div id="rowOfSelect">
       <div id="incomeTab" onclick="showIncome()">Income: 5/s ⤵</div>
-      <div id="powerTab" onclick="showPower()">Power: 0 ⤵</div>
-      <div id="cash">Money: $0</div>
+      <div id="powerTab" onclick="showPower()">Power: 1/s ⤵</div>
+      <div id="cash">Wealth: $0</div>
+      <div id="power">Power: 0</div>
+
       <hr id="hrId" class="hr">
 
       <div id="incomeDropdown2">
@@ -88,8 +91,21 @@
 
       </div>
       
-      <div id="incomeDropdown">
+      <div id="powerDropdown2">
+          <div id="powerDropdown">
+            <br>
+            <div class="subunit" id="heavyTanks">Heavy Tanks<div id="heavyTanksCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="advancedPlanes">Advanced Planes<div id="advancedPlanesCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="aircraftCarriers">Aircraft Carriers<div id="aircraftCarriersCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="tanks">Tanks<div id="tanksCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="planes">Planes<div id="planesCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="helicopters">Helicopters<div id="helicoptersCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="submarines">Submarines<div id="submarinesCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="boats">Boats<div id="boatsCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="soldiers" onclick="showSoldiers()">Soldiers<div id="soldiersCount" class="subunitCount">1</div></div>
 
+
+          </div>
       </div>
     </div>
   </div>
@@ -118,6 +134,24 @@
     var incomeNeighborhoods = 0;
     var incomeStreets = 0;
 
+    var numHeavyTanks = Number(document.getElementById("heavyTanksCount").innerText);
+    var numAdvancedPlanes = Number(document.getElementById("advancedPlanesCount").innerText);
+    var numAircraftCarriers = Number(document.getElementById("aircraftCarriersCount").innerText);
+    var numTanks = Number(document.getElementById("tanksCount").innerText);
+    var numPlanes = Number(document.getElementById("planesCount").innerText);
+    var numHelicopters = Number(document.getElementById("helicoptersCount").innerText);
+    var numSubmarines = Number(document.getElementById("submarinesCount").innerText);
+    var numBoats = Number(document.getElementById("boatsCount").innerText);
+    var numSoldiers = Number(document.getElementById("soldiersCount").innerText);
+    var incomeHeavyTanks = 0;
+    var incomeAdvancedPlanes = 0;
+    var incomeAircraftCarriers = 0;
+    var incomeTanks = 0;
+    var incomePlanes = 0;
+    var incomeHelicopters = 0;
+    var incomeSubmarines = 0;
+    var incomeBoats = 0;
+    var incomeSoldiers = 0;
 
 
     function numberToString(num) {
@@ -169,21 +203,21 @@
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("streetsInfo", "inline-block");
       changeDisplay("districtsInfo", "none");
-      changeBuyDisplay("streets");
+      updateBuyDisplays();
     }
 
     function showNeighborhoods() {
       changeDisplay("streetsInfo", "none");
       changeDisplay("neighborhoodsInfo", "inline-block");
       changeDisplay("districtsInfo", "none");
-      changeBuyDisplay("neighborhoods");
+      updateBuyDisplays();
     }
 
     function showDistricts() {
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("streetsInfo", "none");
       changeDisplay("districtsInfo", "inline-block");
-      changeBuyDisplay("districts");
+      updateBuyDisplays();
     }
 
     function calculateIncome() {
@@ -208,12 +242,10 @@
       if (buyMultiple) {
         let toBuy = Math.floor(cash/50);
         cash -= toBuy*50;
-        
         numStreets += toBuy;
       }
       else {
         cash -= 50;
-        
         numStreets += 1;
       }
       calculateIncome();
@@ -224,10 +256,9 @@
         let toBuy1 = numStreets;
         if (toBuy1 >= 40) {
           document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/20)) + " Neighborhoods";
-          // changeDisplay("buyNeighborhood2","inline-block");
         }
     }
-    function buyThing(price, profit, lowProfit, whichLowerCount, whichCount, howManyLowerCount, buyMultiple, ownXWhat, ownXWhatLow, totalXWhat, totalXWhatLow, nameHigh, nameLow) {
+    function buyThing(price, profit, lowProfit, whichLowerCount, whichCount, howManyLowerCount, buyMultiple, ownXWhat, ownXWhatLow, totalXWhat, totalXWhatLow, nameHigh, nameLow, goOffWhich) {
       var temp = 0;
       whichCount = 0;
       var temp = whichLowerCount;
@@ -236,18 +267,16 @@
         let toBuyLower = temp;
         let toBuyPrice = Math.floor(cash/price);
         
-
         if (toBuyPrice*howManyLowerCount > temp) {
-          console.log("In here, --" + price + "--" + temp + "--" + howManyLowerCount + "--");
-          console.log(Math.floor(temp/howManyLowerCount)*Number(price));
           cash -= Math.floor(temp/howManyLowerCount)*Number(price);
+          console.log("Subtracted " + Math.floor(temp/howManyLowerCount)*Number(price));
           
           whichCount += Math.floor(temp/howManyLowerCount);
           whichLowerCount -= Math.floor(temp/howManyLowerCount)*howManyLowerCount;
         }
         else {
-          console.log("In here 2")
           cash -= toBuyPrice*price;
+          console.log("Subtracted " + toBuyPrice*price);
           
           whichCount += toBuyPrice;
           whichLowerCount -= toBuyPrice*howManyLowerCount;
@@ -311,6 +340,7 @@
     function showIncome() {
       changeDisplay("streetsInfo", "inline-block");
       changeDisplay("incomeDropdown", "inline-block");
+      changeDisplay("powerDropdown", "none");
       changeDisplay("progressBars2", "inline-block");
       document.getElementById("powerTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
       document.getElementById("powerTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
@@ -323,6 +353,7 @@
       changeDisplay("streetsInfo", "none");
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("districtsInfo", "none");
+      changeDisplay("powerDropdown", "inline-block");
 
       changeDisplay("incomeDropdown", "none");
       changeDisplay("progressBars2", "none");
@@ -334,7 +365,7 @@
       document.getElementById("powerTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
     }
     function startGame() {
-      console.log("starting");
+      changeDisplay("powerDropdown", "none");
       changeDisplay("startGameButton", "none");
       changeDisplay("main", "block");
       changeDisplay("streetsInfo", "inline-block");
@@ -390,69 +421,94 @@
       document.getElementById(id).style.display = "none";
     }
 
-    function changeBuyDisplay(which) {
-      if (which == "streets") {
-        if (cash<50) {
-          changeDisplay("cantAfford","inline-block");
-          changeDisplay("buyStreet","none");
-          changeDisplay("buyStreet2","none");
+    function updateBuyDisplays() {
+      changeDisplay("cantAfford","none");
+      changeDisplay("buyStreet","none");
+      changeDisplay("buyStreet2","none");
+      changeDisplay("buyNeighborhood","none");
+      changeDisplay("buyNeighborhood2","none");
+      changeDisplay("buyDistrict","none");
+      changeDisplay("buyDistrict2","none");
+      
+      // START STREETS
+      if (cash<50) {
+        changeDisplay("cantAfford","inline-block");
+        changeDisplay("buyStreet","none");
+        changeDisplay("buyStreet2","none");
         }
-        else {
-          changeDisplay("cantAfford","none");
-          changeDisplay("buyStreet","inline-block");
-          changeDisplay("buyStreet2","none");
-        }
+      else {
+        changeDisplay("cantAfford","none");
+        changeDisplay("buyStreet","inline-block");
+        changeDisplay("buyStreet2","none");
         if (cash>=100) {
           let toBuy = Math.floor(cash/50);
-          
           document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(toBuy) + " Streets";
           changeDisplay("buyStreet2","inline-block");
         }
       }
-      else if (which == "neighborhoods") {
-        if (cash>10000 && numStreets >= 20) {
-          changeDisplay("cantAffordNeighborhood","none");
-          changeDisplay("buyNeighborhood","inline-block");
-          // changeDisplay("buyNeighborhood2","none");
+      // END STREETS
+
+      // START NEIGHBORHOODS
+      if (cash>10000 && numStreets >= 20) {
+        changeDisplay("cantAffordNeighborhood","none");
+        changeDisplay("buyNeighborhood","inline-block");
+        // changeDisplay("buyNeighborhood2","none");
+      }
+      else {
+        changeDisplay("cantAffordNeighborhood","inline-block");
+        changeDisplay("buyNeighborhood","none");
+        changeDisplay("buyNeighborhood2","none");
+      }
+      if (cash>=20000 && numStreets > 40) {
+        let toBuy = Math.floor(cash/10000); // How many can buy with cash
+        let toBuy1 = numStreets; // How many can buy with streets
+        if (toBuy*20 > toBuy1) {
+          document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/20)) + " Neighborhoods";
+          changeDisplay("buyNeighborhood2","inline-block");
+          document.getElementById("buyNeighborhood2").onclick = function(){buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', true);};  
+          doThing = false;
+
         }
         else {
-          changeDisplay("cantAffordNeighborhood","inline-block");
-          changeDisplay("buyNeighborhood","none");
-          changeDisplay("buyNeighborhood2","none");
-        }
-        if (cash>=20000) {
-          let toBuy = Math.floor(cash/10000);
-          let toBuy1 = numStreets;
-          if (toBuy*20 > toBuy1 && toBuy1 > 40) {
-            document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/20)) + " Neighborhoods";
-            changeDisplay("buyNeighborhood2","inline-block");
-          }
+          document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy)) + " Neighborhoods";
+          changeDisplay("buyNeighborhood2","inline-block");
+          document.getElementById("buyNeighborhood2").onclick = function(){buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false);};
+          doThing = false;
         }
       }
-      else if (which == "districts") {
-        if (cash>2000000 && numNeighborhoods >= 50) {
-          changeDisplay("cantAffordDistrict","none");
-          changeDisplay("buyDistrict","inline-block");
-          changeDisplay("buyDistrict2","none");
+      // END NEIGHBORHOODS
+
+      // START DISTRICTS
+      if (cash>2000000 && numNeighborhoods >= 50) {
+        changeDisplay("cantAffordDistrict","none");
+        changeDisplay("buyDistrict","inline-block");
+        changeDisplay("buyDistrict2","none");
+      }
+      else {
+        changeDisplay("cantAffordDistrict","inline-block");
+        changeDisplay("buyDistrict","none");
+        changeDisplay("buyDistrict2","none");
+      }
+      if (cash>=4000000 && numNeighborhoods > 100) {
+        let toBuy = Math.floor(cash/2000000);
+        let toBuy1 = numNeighborhoods;
+        if (toBuy*50 > toBuy1) {
+          document.getElementById("buyDistrict2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/50)) + " Districts";
+          changeDisplay("buyDistrict2","inline-block");
+          document.getElementById("buyDistrict2").onclick = function(){buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', true);};  
         }
         else {
-          changeDisplay("cantAffordDistrict","inline-block");
-          changeDisplay("buyDistrict","none");
-          changeDisplay("buyDistrict2","none");
-        }
-        if (cash>=4000000) {
-          let toBuy = Math.floor(cash/2000000);
-          let toBuy1 = numNeighborhoods;
-          if (toBuy*50 > toBuy1 && toBuy1 > 100) {
-            document.getElementById("buyDistrict2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/50)) + " Districts";
-            changeDisplay("buyDistrict2","inline-block");
-          }
+          document.getElementById("buyDistrict2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy)) + " Districts";
+          changeDisplay("buyDistrict2","inline-block");
+          document.getElementById("buyDistrict2").onclick = function(){buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false);};  
+
         }
       }
+      // END DISTRICTS
     }
+
     var alreadyDid = true;
     function doFunction() {
-      console.log("starting");
 
       var element = document.getElementById("cash");
       var accessVarNeighborhoods = 1;
@@ -461,13 +517,20 @@
       var inst = setInterval(change, 1); // update other stuff example cash
       function change() {
         cash += Math.floor(incomeStreets/5);
-        element.innerHTML = "Money: $" + friendlyNum(cash);
+        if (doThing) {
+          cash = 100000;
+          numStreets = 220;
+        }
+        element.innerHTML = "Wealth: $" + friendlyNum(cash);
+        
+        if (doThing) {
+          cash = 100000;
+          numStreets = 220;
+        }
 
         updateDocumentCounts();
         calculateIncome();
-        changeBuyDisplay("streets");
-        changeBuyDisplay("neighborhoods");
-        changeBuyDisplay("districts");
+        updateBuyDisplays();
         
         if (numNeighborhoods>0) {
           accessVarNeighborhoods += 1;
@@ -498,13 +561,18 @@
         else {changeDisplay("progressNeighborhoods", "none");}
         if (numDistricts > 0) {changeDisplay("progressDistricts", "inline-block");}
         else {changeDisplay("progressDistricts", "none");}
-
+        
+        if (doThing) {
+          cash = 100000;
+          numStreets = 220;
+        }
       }
     }
     function move(id, width, accessVar) {
       var elem = document.getElementById(id); 
       elem.style.width = width + '%'; 
     }
+    var doThing = false;
   </script>
 </body>
 </html>
