@@ -12,10 +12,9 @@
   margin: 0 auto;}
 #startGameButton:hover {
   background: rgb(245, 245, 245);}
-#rowOfSelect {
-  width: 100%;
-  /* text-decoration-line: underline; */}
-#powerTab {
+.powerTab2 {
+  width: 48%;
+  display: inline-block;
   /* margin-left: 2%; */
   cursor: pointer;
   display: inline-block;
@@ -24,54 +23,77 @@
   border-right: 1px solid rgba(187, 187, 187, 0);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 5px;
-  /* color:rgb(70, 70, 255) */}
-#powerTab:hover {
-  background: rgb(245, 245, 245);}
-#incomeTab {
-  margin-left: 2%;
-  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;}
+.incomeTab2 {
+  /* margin-left: 2%; */
+  cursor: pointer !important;
   display: inline-block;
   border-top: 1px solid rgba(187, 187, 187, 0.4);
   border-left: 1px solid rgba(187, 187, 187, 0.4);
   border-right: 1px solid rgba(187, 187, 187, 0.4);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 5px;
-  /* color:rgb(70, 70, 255) */}
-#incomeTab:hover {
-  background: rgb(245, 245, 245);}
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  width: 48%;
+  display: inline-block;
+}
+#incomeTab {
+  display: inline-block;
+}
+#powerTab {
+  display: inline-block;
+}
+.incomeTab2:hover {
+  color:#0f3272 !important;
+  text-decoration-line: underline;
+  background: rgba(185, 185, 185, 0.4);}
 #cash {
-  cursor: default;
-  margin-left: 2%;
+  /* margin-left: 2%; */
+  /* width: 22%; */
+  padding: 5px;
   display: inline-block;}
 #power {
-  cursor: default;
-  margin-left: 2%;
+  /* margin-left: 2%; */
+  /* width: 22%; */
+  padding: 5px;
   display: inline-block;}
 .subunit {
   cursor: pointer;
   /* width: 25%; */
   margin-left: 2%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 15px;
   /* padding-left: 30px; */
   border-bottom: 1px solid rgba(187, 187, 187, 0.4);
   border-top: 1px solid rgba(187, 187, 187, 0);
   border-left: 1px solid rgba(187, 187, 187, 0);
   border-right: 1px solid rgba(187, 187, 187, 0);}
 .subunit:hover {
-  background: rgb(245, 245, 245);}
+  background: rgba(196, 196, 196, 0.5) !important;}
 .subunitCount {
   float: right;
+  padding-right: 20px;
   /* padding-right: 10px; */}
 #incomeDropdown {
   display: inline-block;
+  margin-left:4%;
   width: 20%;}
 .incomeInfo {
   vertical-align:top;
   padding-top:1%;
   padding-left:1%;}
+.powerInfo {
+  vertical-align:top;
+  padding-top:1%;
+  padding-left:1%;}
 #powerDropdown {
   display: inline-block;
+  margin-left:4%;
   width: 20%;}
 .cantAffordBuyButton {
   cursor: pointer;
@@ -100,23 +122,75 @@
   padding-left: 1%;
   height: 5%;}
 #progressBars {
+  margin-bottom:1%;
   vertical-align:top;
   padding-top:1%;
   position: relative;
   /* font-size:20px; */}
 #progressBlank {
   margin-bottom:0px;}
+#progressBlankBar {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 15px;}
 .progressBarClassBox {
   border: 1px solid rgba(187, 187, 187, 0.4);
   border-radius: 3px;
   background-color:lightgray;
   width: 100%;
-
+  margin-bottom: 6px;
   /* height: 1%; */
   /* margin-bottom:10px; */}
 .progressBarClass {
   width: 1%;
+  /* padding-top: 5px; */
+  padding-bottom: 3px;
+  font-size: 15px;
   background-color:lightgreen;}
+#progressBarsPower2 {
+  width: 10%;
+  display: inline-block;
+  padding-left: 1%;
+  height: 5%;}
+#progressBarsPower {
+  vertical-align:top;
+  padding-top:1%;
+  position: relative;
+  margin-bottom:1%;
+  /* font-size:20px; */}
+.powerTab2:hover {
+  text-decoration-line:underline !important;
+  color:#0f3272 !important;
+  background: rgba(185, 185, 185, 0.4) !important;
+  /* color: rgb(34, 97, 214) */
+}
+.upgradeImage {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  display: none;
+}
+.a:hover {
+  text-decoration-line:underline;
+  color:#0f3272;
+}
+#tabs {
+  cursor: default;
+}
+/* #incomeTab {
+  float: right;
+  text-align: right !important;
+  padding-right: 25% !important;
+}
+#powerTab {
+  float: right;
+  text-align: right !important;
+  padding-right: 25% !important;
+} */
+
+
+
+
 
 
 

@@ -13,27 +13,27 @@
   </div>
   <div id="main" style="display: none;">
     <div id="rowOfSelect">
-      <div id="incomeTab" onclick="showIncome()">Income: 5/s ⤵</div>
-      <div id="powerTab" onclick="showPower()">Power: 1/s ⤵</div>
-      <div id="cash">Wealth: $0</div>
-      <div id="power">Power: 0</div>
+      <div id="tabs">
+        <div class="incomeTab2" onclick="showIncome()"><div id="cash">Wealth: $0</div><div class="tabs" id="incomeTab">5/s ⤵</div></div>
+        <div class="powerTab2" onclick="showPower()"><div id="power">Power: 0</div><div class="tabs" id="powerTab">Power: 1/s ⤵</div></div>
+      </div>
 
       <hr id="hrId" class="hr">
 
       <div id="incomeDropdown2">
         <div id="incomeDropdown">
           <br>
-          <div class="subunit" id="planets">Planets<div id="planetsCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="continents">Continents<div id="continentsCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="countries">Countries<div id="countriesCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="states">States<div id="statesCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="counties">Counties<div id="countiesCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="megacities">Megacities<div id="megacitiesCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="cities">Cities<div id="citiesCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="towns">Towns<div id="townsCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="districts" onclick="showDistricts()">Districts<div id="districtsCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="neighborhoods" onclick="showNeighborhoods()">Neighborhoods<div id="neighborhoodsCount" class="subunitCount">0</div></div>
-          <div class="subunit" id="streets" onclick="showStreets()">Streets<div id="streetsCount" class="subunitCount">1</div></div>
+          <div class="subunit" id="planets">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Planets</span><div id="planetsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="continents">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Continents</span><div id="continentsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="countries">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Countries</span><div id="countriesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="states">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">States</span><div id="statesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="counties">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Counties</span><div id="countiesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="megacities">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Megacities</span><div id="megacitiesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="cities">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Cities</span><div id="citiesCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="towns">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Towns</span><div id="townsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="districts" onclick="showDistricts()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Districts</span><div id="districtsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="neighborhoods" onclick="showNeighborhoods()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Neighborhoods</span><div id="neighborhoodsCount" class="subunitCount">0</div></div>
+          <div class="subunit" id="streets" onclick="showStreets()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Streets</span><div id="streetsCount" class="subunitCount">1</div></div>
         </div>
         <div id="progressBars2">
         <div id="progressBars">
@@ -78,34 +78,51 @@
         </div>
 
         <div id="districtsInfo" style="display:none" class="incomeInfo">
-            <h3>Districts</h3>
-            <p id="ownXDistricts">You own 0 districts.</p>
-            <p>Each district earns $250/s and 1 neighborhood per 5 seconds.</p>
-            <p id="totalXDistricts">In total, you earn $0 and 0 neighborhoods per second from your districts.</p>
-            <hr>
-            <p>Buying 1 district costs $2,000,000 and 50 neighborhoods.</p>
-            <div id="cantAffordDistrict" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
-            <div id="buyDistrict" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, false, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods')" class="buyButton">Buy 1 District</div>
-            <div id="buyDistrict2" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods')" class="buyButton2">Buy 2 Districts</div>
-          </div>
+          <h3>Districts</h3>
+          <p id="ownXDistricts">You own 0 districts.</p>
+          <p>Each district earns $250/s and 1 neighborhood per 5 seconds.</p>
+          <p id="totalXDistricts">In total, you earn $0 and 0 neighborhoods per second from your districts.</p>
+          <hr>
+          <p>Buying 1 district costs $2,000,000 and 50 neighborhoods.</p>
+          <div id="cantAffordDistrict" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
+          <div id="buyDistrict" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, false, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods')" class="buyButton">Buy 1 District</div>
+          <div id="buyDistrict2" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods')" class="buyButton2">Buy 2 Districts</div>
+        </div>
 
       </div>
       
       <div id="powerDropdown2">
           <div id="powerDropdown">
             <br>
-            <div class="subunit" id="heavyTanks">Heavy Tanks<div id="heavyTanksCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="advancedPlanes">Advanced Planes<div id="advancedPlanesCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="aircraftCarriers">Aircraft Carriers<div id="aircraftCarriersCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="tanks">Tanks<div id="tanksCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="planes">Planes<div id="planesCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="helicopters">Helicopters<div id="helicoptersCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="submarines">Submarines<div id="submarinesCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="boats">Boats<div id="boatsCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="soldiers" onclick="showSoldiers()">Soldiers<div id="soldiersCount" class="subunitCount">1</div></div>
-
-
+            <div class="subunit" id="heavyTanks"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Heavy Tanks</span><div id="heavyTanksCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="advancedPlanes"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Advanced Planes</span><div id="advancedPlanesCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="aircraftCarriers"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Aircraft Carriers</span><div id="aircraftCarriersCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="tanks"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Tanks</span><div id="tanksCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="planes"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Planes</span><div id="planesCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="helicopters"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Helicopters</span><div id="helicoptersCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="submarines"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Submarines</span><div id="submarinesCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="boats"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Boats</span><div id="boatsCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="soldiers" onclick="showSoldiers()"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Soldiers</span><div id="soldiersCount" class="subunitCount">1</div></div>
           </div>
+          <div id="progressBarsPower2">
+            <div id="progressBarsPower">
+              <div class="progressBarClassBox" id="progressSoldiers">
+                <div class="progressBarClass" id="progressSoldiersBar">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          <div id="soldiersInfo" style="display:none" class="powerInfo">
+              <h3>Soldiers</h3>
+              <p>Soldiers are the basic unit of power collection.</p>
+              <p id="ownXSoldiers">You own 1 soldier.</p>
+              <p>Each soldier earns 1 power/second.</p>
+              <p id="totalXSoldiers">In total, you earn 1 power/second from your soldiers.</p>
+              <hr>
+              <p>Buying 1 soldier costs $10000 and 5 power.</p>
+              <div id="cantAfford2" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
+              <div id="buySoldier" style="display:none" onclick="buySoldiers(false)" class="buyButton">Buy 1 Soldiers</div>
+              <div id="buySoldier2" style="display:none" onclick="buySoldiers(true)" class="buyButton2">Buy 2 Soldiers</div>
+            </div>
       </div>
     </div>
   </div>
@@ -177,32 +194,48 @@
       return numStr;
     }
 
-    function updateCounts() {
-      numPlanets = Number(document.getElementById("planetsCount").innerText);
-      numContinents = Number(document.getElementById("continentsCount").innerText);
-      numCountries = Number(document.getElementById("countriesCount").innerText);
-      numStates = Number(document.getElementById("statesCount").innerText);
-      numCounties = Number(document.getElementById("countiesCount").innerText);
-      numMegacities = Number(document.getElementById("megacitiesCount").innerText);
-      numCities = Number(document.getElementById("citiesCount").innerText);
-      numTowns = Number(document.getElementById("townsCount").innerText);
-      numDistricts = Number(document.getElementById("districtsCount").innerText);
-      numNeighborhoods = Number(document.getElementById("neighborhoodsCount").innerText);
-      numStreets = Number(document.getElementById("streetsCount").innerText);
-    }
-
     var cash = 0;
     var power = 0;
     var income = 5;
+    var powerIncome = 1;
     
     function changeDisplay(id, type) {
       document.getElementById(id).style.display = type;
+    }
+
+    function changeSectionBackground(which) {
+      if (which == "streets") {
+        document.getElementById("streets").style.backgroundColor = "rgba(185,185,185,0.15)";
+        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
+      }
+      else if (which == "neighborhoods") {
+        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("neighborhoods").style.backgroundColor = "rgba(185,185,185,0.15)";
+        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
+      }
+      else if (which == "districts") {
+        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("districts").style.backgroundColor = "rgba(185,185,185,0.15)";
+        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
+      }
+      else if (which == "soldiers") {
+        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("soldiers").style.backgroundColor = "rgba(185,185,185,0.15)";
+      }
+
     }
     
     function showStreets() {
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("streetsInfo", "inline-block");
       changeDisplay("districtsInfo", "none");
+      changeSectionBackground("streets");
       updateBuyDisplays();
     }
 
@@ -210,6 +243,7 @@
       changeDisplay("streetsInfo", "none");
       changeDisplay("neighborhoodsInfo", "inline-block");
       changeDisplay("districtsInfo", "none");
+      changeSectionBackground("neighborhoods");
       updateBuyDisplays();
     }
 
@@ -217,12 +251,13 @@
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("streetsInfo", "none");
       changeDisplay("districtsInfo", "inline-block");
+      changeSectionBackground("districts");
       updateBuyDisplays();
     }
 
     function calculateIncome() {
       income = numStreets * 5 + numNeighborhoods * 30 + numDistricts * 250;
-      document.getElementById("incomeTab").innerHTML = `Income: $${friendlyNum(income)}/s ⤵`;
+      document.getElementById("incomeTab").innerHTML = `$${friendlyNum(income)}/s ⤵`;
 
       // var incomePlanets = 0;
       // var incomeContinents = 0;
@@ -235,10 +270,40 @@
       incomeDistricts = numDistricts*250;
       incomeNeighborhoods = numNeighborhoods*30;
       incomeStreets = numStreets*5;
+
+      powerIncome = numSoldiers * 1 + numBoats * 3;
+      document.getElementById("powerTab").innerHTML = `Power: ${friendlyNum(powerIncome)}/s ⤵`
+      
+      incomeBoats = numBoats * 3;
+      incomeSoldiers = numSoldiers * 1;
+    }
+
+    function buySoldiers(buyMultiple) {
+      if (buyMultiple) {
+        let toBuy1 = Math.floor(cash/10000);
+        let toBuy2 = Math.floor(power/5);
+        if ((cash/10000) < (power)/5) {
+          cash -= toBuy1*10000;
+          power -= toBuy1*5;
+          numSoldiers += toBuy1;
+        }
+        else {
+          cash -= toBuy2*10000;
+          power -= toBuy2*5;
+          numSoldiers += toBuy2;
+        }
+      }
+      else {
+        cash -= 10000;
+        power -= 5;
+        numSoldiers += 1;
+      }
+      calculateIncome();
+      updateDocumentCounts();
+
     }
     
     function buyStreets(buyMultiple) {
-      
       if (buyMultiple) {
         let toBuy = Math.floor(cash/50);
         cash -= toBuy*50;
@@ -250,13 +315,8 @@
       }
       calculateIncome();
       updateDocumentCounts();
-      document.getElementById("ownXStreets").innerHTML = `You own ${friendlyNum(numStreets)} streets.`;
-      document.getElementById("totalXStreets").innerHTML = `In total, you earn $${friendlyNum(numStreets*5)}/second from your streets.`;
-
-        let toBuy1 = numStreets;
-        if (toBuy1 >= 40) {
-          document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/20)) + " Neighborhoods";
-        }
+      document.getElementById("ownXSoldiers").innerHTML = `You own ${friendlyNum(numSoldiers)} soldiers.`;
+      document.getElementById("totalXSoldiers").innerHTML = `In total, you earn ${friendlyNum(numSoldiers*1)} power/second from your soldiers.`;
     }
     function buyThing(price, profit, lowProfit, whichLowerCount, whichCount, howManyLowerCount, buyMultiple, ownXWhat, ownXWhatLow, totalXWhat, totalXWhatLow, nameHigh, nameLow, goOffWhich) {
       var temp = 0;
@@ -335,6 +395,21 @@
       document.getElementById("districtsCount").innerHTML = friendlyNum(numDistricts);
       document.getElementById("neighborhoodsCount").innerHTML = friendlyNum(numNeighborhoods);
       document.getElementById("streetsCount").innerHTML = friendlyNum(numStreets);
+
+      (document.getElementById("heavyTanksCount").innerText) = friendlyNum(numHeavyTanks);
+      (document.getElementById("advancedPlanesCount").innerText) = friendlyNum(numAdvancedPlanes);
+      (document.getElementById("aircraftCarriersCount").innerText) = friendlyNum(numAircraftCarriers);
+      (document.getElementById("tanksCount").innerText) = friendlyNum(numTanks);
+      (document.getElementById("planesCount").innerText) = friendlyNum(numPlanes);
+      (document.getElementById("helicoptersCount").innerText) = friendlyNum(numHelicopters);
+      (document.getElementById("submarinesCount").innerText) = friendlyNum(numSubmarines);
+      (document.getElementById("boatsCount").innerText) = friendlyNum(numBoats);
+      (document.getElementById("soldiersCount").innerText) = friendlyNum(numSoldiers);
+      
+      document.getElementById("power").innerHTML = "Power: " + friendlyNum(power);
+
+
+
     }
 
     function showIncome() {
@@ -342,6 +417,12 @@
       changeDisplay("incomeDropdown", "inline-block");
       changeDisplay("powerDropdown", "none");
       changeDisplay("progressBars2", "inline-block");
+      changeDisplay("progressBarsPower2", "none");
+      changeDisplay("soldiersInfo", "none");
+      document.getElementById("streets").style.backgroundColor = "rgba(185,185,185,0.15)";
+      document.getElementById("incomeTab").style.color = "black";
+      // document.getElementById("incomeTab").style.backgroundColor = "rgba(187,187,187,0.15)";
+      // document.getElementById("powerTab").style.backgroundColor = "rgba(255,255,255,1)";
       document.getElementById("powerTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
       document.getElementById("powerTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
       document.getElementById("powerTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
@@ -354,9 +435,17 @@
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("districtsInfo", "none");
       changeDisplay("powerDropdown", "inline-block");
+      changeDisplay("soldiersInfo", "inline-block");
+      document.getElementById("soldiers").style.backgroundColor = "rgba(185,185,185,0.15)";
+      // document.getElementById("powerTab").style.backgroundColor = "rgba(187,187,187,0.15)";
+      // document.getElementById("incomeTab").style.backgroundColor = "rgba(255,255,255,1)";
 
       changeDisplay("incomeDropdown", "none");
       changeDisplay("progressBars2", "none");
+      changeDisplay("progressBarsPower2", "inline-block");
+      
+      document.getElementById("districts").style.backgroundColor = "";
+      document.getElementById("neighborhoods").style.backgroundColor = "";
       document.getElementById("incomeTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
       document.getElementById("incomeTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
       document.getElementById("incomeTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
@@ -369,6 +458,10 @@
       changeDisplay("startGameButton", "none");
       changeDisplay("main", "block");
       changeDisplay("streetsInfo", "inline-block");
+      changeDisplay("progressBarsPower2", "none");
+      document.getElementById("streets").style.backgroundColor = "rgba(185,185,185,0.15)";
+      // document.getElementById("incomeTab").style.color = "black";
+      // document.getElementById("incomeTab2").style.backgroundColor = "rgba(187,187,187,0.15)";
       doFunction();
     }
     
@@ -429,6 +522,10 @@
       changeDisplay("buyNeighborhood2","none");
       changeDisplay("buyDistrict","none");
       changeDisplay("buyDistrict2","none");
+
+      changeDisplay("buySoldier", "none");
+      changeDisplay("buySoldier2", "none");
+
       
       // START STREETS
       if (cash<50) {
@@ -505,53 +602,76 @@
         }
       }
       // END DISTRICTS
+
+      // START SOLDIERS
+      if (cash<10000) {
+        changeDisplay("cantAfford2","inline-block");
+        changeDisplay("buySoldier","none");
+        changeDisplay("buySoldier2","none");
+        }
+      else {
+        changeDisplay("cantAfford2","none");
+        changeDisplay("buySoldier","inline-block");
+        changeDisplay("buySoldier2","none");
+        if (cash>=20000 && power >= 10) {
+          let toBuy1 = Math.floor(cash/10000);
+          let toBuy2 = Math.floor(power/5);
+          if (toBuy1 < toBuy2) {var toBuy3 = toBuy1;}
+          else {var toBuy3 = toBuy2;}
+          document.getElementById("buySoldier2").innerHTML = "Buy " + friendlyNum(toBuy3) + " Soldiers";
+          changeDisplay("buySoldier2","inline-block");
+        }
+      }
+      // END SOLDIERS
     }
 
     var alreadyDid = true;
     function doFunction() {
 
       var element = document.getElementById("cash");
-      var accessVarNeighborhoods = 1;
-      var accessVarDistricts = 1;
+      var element2 = document.getElementById("power");
 
-      var inst = setInterval(change, 1); // update other stuff example cash
+      var accessVarNeighborhoods = 0;
+      var accessVarDistricts = 0;
+      var accessVarSoldiers = 0;
+
+      var inst = setInterval(change, 1); // update income tab
+
       function change() {
         cash += Math.floor(incomeStreets/5);
-        if (doThing) {
-          cash = 100000;
-          numStreets = 220;
-        }
         element.innerHTML = "Wealth: $" + friendlyNum(cash);
-        
-        if (doThing) {
-          cash = 100000;
-          numStreets = 220;
-        }
 
         updateDocumentCounts();
         calculateIncome();
         updateBuyDisplays();
         
-        if (numNeighborhoods>0) {
+        if (numNeighborhoods > 0) {
           accessVarNeighborhoods += 1;
-          move("progressNeighborhoodsBar", (accessVarNeighborhoods/2), accessVarNeighborhoods);
-          if (accessVarNeighborhoods == 200) {
+          move("progressNeighborhoodsBar", ((accessVarNeighborhoods)%200/2));
+          if (accessVarNeighborhoods%200 == 0) {
             numStreets += (numNeighborhoods);
             cash += Math.floor(incomeNeighborhoods);
-            accessVarNeighborhoods = 0;
           }
         }
-
         if (numDistricts > 0) {
           accessVarDistricts += 1;
-          move("progressDistrictsBar", ((accessVarDistricts/2)), accessVarDistricts);
-          if (accessVarDistricts == 200) {
+          move("progressDistrictsBar", (((accessVarDistricts)%200/2)));
+          if (accessVarDistricts%200 == 0) {
             numNeighborhoods += (numDistricts);
             cash += Math.floor(incomeDistricts);
-            accessVarDistricts = 0;
           }
         }
+        if (numSoldiers > 0) {
+          accessVarSoldiers += 1;
+          move("progressSoldiersBar", (((accessVarSoldiers)%200/2)%100));
+          if (accessVarSoldiers%200 == 0) {
+            power += incomeSoldiers;
+            element2.innerHTML = "Power: " + friendlyNum(power);
 
+        updateDocumentCounts();
+        calculateIncome();
+          }
+        }
         document.getElementById("ownXStreets").innerHTML = `You own ${friendlyNum(numStreets)} streets.`;
         document.getElementById("totalXStreets").innerHTML = `In total, you earn $${friendlyNum(numStreets*5)}/second from your streets.`;
         document.getElementById("ownXNeighborhoods").innerHTML = `You own ${friendlyNum(numNeighborhoods)} neighborhoods.`;
@@ -561,18 +681,19 @@
         else {changeDisplay("progressNeighborhoods", "none");}
         if (numDistricts > 0) {changeDisplay("progressDistricts", "inline-block");}
         else {changeDisplay("progressDistricts", "none");}
-        
-        if (doThing) {
-          cash = 100000;
-          numStreets = 220;
-        }
+        // if (numSoldiers > 0) {changeDisplay("progressSoldiers", "inline-block");}
+        // else {changeDisplay("progressSoldiers", "none");}
       }
+
+
+
+
+
     }
-    function move(id, width, accessVar) {
+    function move(id, width) {
       var elem = document.getElementById(id); 
       elem.style.width = width + '%'; 
     }
-    var doThing = false;
   </script>
 </body>
 </html>
