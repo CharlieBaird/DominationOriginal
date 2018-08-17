@@ -1,6 +1,18 @@
 .body {
   /* text-align: center; */
   font-family: 'Noto Sans', sans-serif;}
+#title {
+  font-family: 'Time Won', sans-serif;
+  font-size: 40px;
+  text-align: center;
+  padding: 10px;
+  /* border: 2px solid rgba(187, 187, 187, 0.4); */
+  border-radius: 20px;
+  width: 50%;
+  margin-left: 24%;
+  background-color: rgba(187,187,187,0.4);
+  font-style: italic;
+}
 #startGameButton {
   text-align: center;
   font-family: 'Noto Sans', sans-serif;
@@ -50,7 +62,7 @@
 .incomeTab2:hover {
   color:#0f3272 !important;
   text-decoration-line: underline;
-  background: rgba(185, 185, 185, 0.4);}
+  background: rgba(185, 185, 185, 0.4) !important;}
 #cash {
   /* margin-left: 2%; */
   /* width: 22%; */

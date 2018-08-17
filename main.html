@@ -4,22 +4,23 @@
 <head>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-  <title>Score Game</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,800" rel="stylesheet">  <title>Score Game</title>
 </head>
 
 <body onselectstart="return false" class="body">
   <div id="startGameButtonDiv">
+    <div id="title"><strong>DOMINATION</strong></div>
     <br><div id="startGameButton" onclick="startGame()">Start Game<br></div><br><hr>
   </div>
+  <div id="topDiv" style="display: none"><div id="title"><strong>DOMINATION</strong></div></div>
   <div id="main" style="display: none;">
     <div id="rowOfSelect">
       <div id="tabs">
-        <div class="incomeTab2" onclick="showIncome()"><div id="cash">Wealth: $0</div><div class="tabs" id="incomeTab">5/s ⤵</div></div>
-        <div class="powerTab2" onclick="showPower()"><div id="power">Power: 0</div><div class="tabs" id="powerTab">Power: 1/s ⤵</div></div>
+        <div id="incomeTab2" class="incomeTab2" onclick="showIncome()"><div id="cash">Wealth: $0</div><div class="tabs" id="incomeTab">5/s ⤵</div></div>
+        <div id="powerTab2" class="powerTab2" onclick="showPower()"><div id="power">Power: 0</div><div class="tabs" id="powerTab">Power: 1/s ⤵</div></div>
       </div>
 
       <hr id="hrId" class="hr">
-
       <div id="incomeDropdown2">
         <div id="incomeDropdown">
           <br>
@@ -73,8 +74,8 @@
           <hr>
           <p>Buying 1 neighborhood costs $10,000 and 20 streets.</p>
           <div id="cantAffordNeighborhood" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
-          <div id="buyNeighborhood" style="display:none" onclick="buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, false, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets')" class="buyButton">Buy 1 Neighborhood</div>
-          <div id="buyNeighborhood2" style="display:none" onclick="buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets')" class="buyButton2">Buy 2 Neighborhoods</div>
+          <div id="buyNeighborhood" style="display:none" onclick="buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, false, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false)" class="buyButton">Buy 1 Neighborhood</div>
+          <div id="buyNeighborhood2" style="display:none" onclick="buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false)" class="buyButton2">Buy 2 Neighborhoods</div>
         </div>
 
         <div id="districtsInfo" style="display:none" class="incomeInfo">
@@ -85,8 +86,8 @@
           <hr>
           <p>Buying 1 district costs $2,000,000 and 50 neighborhoods.</p>
           <div id="cantAffordDistrict" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
-          <div id="buyDistrict" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, false, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods')" class="buyButton">Buy 1 District</div>
-          <div id="buyDistrict2" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods')" class="buyButton2">Buy 2 Districts</div>
+          <div id="buyDistrict" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, false, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false)" class="buyButton">Buy 1 District</div>
+          <div id="buyDistrict2" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false)" class="buyButton2">Buy 2 Districts</div>
         </div>
 
       </div>
@@ -101,11 +102,14 @@
             <div class="subunit" id="planes"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Planes</span><div id="planesCount" class="subunitCount">0</div></div>
             <div class="subunit" id="helicopters"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Helicopters</span><div id="helicoptersCount" class="subunitCount">0</div></div>
             <div class="subunit" id="submarines"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Submarines</span><div id="submarinesCount" class="subunitCount">0</div></div>
-            <div class="subunit" id="boats"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Boats</span><div id="boatsCount" class="subunitCount">0</div></div>
+            <div class="subunit" id="boats" onclick="showBoats()"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Boats</span><div id="boatsCount" class="subunitCount">0</div></div>
             <div class="subunit" id="soldiers" onclick="showSoldiers()"><div style="display:inline-block"><img class="upgradeImage" src="https://static.thenounproject.com/png/93070-200.png"></div><div style="display:inline-block"><img class="upgradeImage" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Blank_Canvas_on_Transparent_Background.png"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="a">Soldiers</span><div id="soldiersCount" class="subunitCount">1</div></div>
           </div>
           <div id="progressBarsPower2">
             <div id="progressBarsPower">
+                <div class="progressBarClassBox" id="progressBoats" style="display:none">
+                  <div class="progressBarClass" id="progressBoatsBar">&nbsp;</div>
+                </div>
               <div class="progressBarClassBox" id="progressSoldiers">
                 <div class="progressBarClass" id="progressSoldiersBar">&nbsp;</div>
               </div>
@@ -119,9 +123,21 @@
               <p id="totalXSoldiers">In total, you earn 1 power/second from your soldiers.</p>
               <hr>
               <p>Buying 1 soldier costs $10000 and 5 power.</p>
-              <div id="cantAfford2" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
+              <div id="cantAffordSoldier" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
               <div id="buySoldier" style="display:none" onclick="buySoldiers(false)" class="buyButton">Buy 1 Soldiers</div>
               <div id="buySoldier2" style="display:none" onclick="buySoldiers(true)" class="buyButton2">Buy 2 Soldiers</div>
+            </div>
+            <div id="boatsInfo" style="display:none" class="powerInfo">
+              <h3>Boats</h3>
+              <p>Boats are the next unit of power collection.</p>
+              <p id="ownXBoats">You own 0 boats.</p>
+              <p>Each boat earns 3 power/second.</p>
+              <p id="totalXBoats">In total, you earn 0 power/second from your boats.</p>
+              <hr>
+              <p>Buying 1 boat costs $1M and 100 power.</p>
+              <div id="cantAffordBoat" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
+              <div id="buyBoat" style="display:none" onclick="buyThing(1000000, 3, 1, power, numBoats, 100, false, 'ownXBoats', 'ownXSoldiers', 'totalXBoats', 'totalXSoldiers', 'boats', 'soldiers', 'true')" class="buyButton">Buy 1 Boat</div>
+              <div id="buyBoat2" style="display:none" onclick="buyThing(1000000, 3, 1, power, numBoats, 100, true, 'ownXBoats', 'ownXSoldiers', 'totalXBoats', 'totalXSoldiers', 'boats', 'soldiers', 'true')" class="buyButton2">Buy 2 Boats</div>
             </div>
       </div>
     </div>
@@ -238,7 +254,6 @@
       changeSectionBackground("streets");
       updateBuyDisplays();
     }
-
     function showNeighborhoods() {
       changeDisplay("streetsInfo", "none");
       changeDisplay("neighborhoodsInfo", "inline-block");
@@ -246,12 +261,23 @@
       changeSectionBackground("neighborhoods");
       updateBuyDisplays();
     }
-
     function showDistricts() {
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("streetsInfo", "none");
       changeDisplay("districtsInfo", "inline-block");
       changeSectionBackground("districts");
+      updateBuyDisplays();
+    }
+    function showSoldiers() {
+      changeDisplay("soldiersInfo", "inline-block");
+      changeDisplay("boatsInfo", "none");
+      changeSectionBackground("soldiers");
+      updateBuyDisplays();
+    }
+    function showBoats() {
+      changeDisplay("soldiersInfo", "none");
+      changeDisplay("boatsInfo", "inline-block");
+      changeSectionBackground("boats");
       updateBuyDisplays();
     }
 
@@ -318,47 +344,94 @@
       document.getElementById("ownXSoldiers").innerHTML = `You own ${friendlyNum(numSoldiers)} soldiers.`;
       document.getElementById("totalXSoldiers").innerHTML = `In total, you earn ${friendlyNum(numSoldiers*1)} power/second from your soldiers.`;
     }
-    function buyThing(price, profit, lowProfit, whichLowerCount, whichCount, howManyLowerCount, buyMultiple, ownXWhat, ownXWhatLow, totalXWhat, totalXWhatLow, nameHigh, nameLow, goOffWhich) {
-      var temp = 0;
-      whichCount = 0;
-      var temp = whichLowerCount;
-      whichLowerCount = 0;
-      if (buyMultiple) {
-        let toBuyLower = temp;
-        let toBuyPrice = Math.floor(cash/price);
-        
-        if (toBuyPrice*howManyLowerCount > temp) {
-          cash -= Math.floor(temp/howManyLowerCount)*Number(price);
-          console.log("Subtracted " + Math.floor(temp/howManyLowerCount)*Number(price));
+    function buyThing(price, profit, lowProfit, whichLowerCount, whichCount, howManyLowerCount, buyMultiple, ownXWhat, ownXWhatLow, totalXWhat, totalXWhatLow, nameHigh, nameLow, isPower) {
+      console.log("How many lower count is " + howManyLowerCount);
+      if (isPower) {
+        var temp = 0;
+        whichCount = 0;
+        var temp = whichLowerCount;
+        whichLowerCount = 0;
+        if (buyMultiple) {
+          let toBuyLower = temp;
+          let toBuyPrice = Math.floor(cash/price);
           
-          whichCount += Math.floor(temp/howManyLowerCount);
-          whichLowerCount -= Math.floor(temp/howManyLowerCount)*howManyLowerCount;
+          if (toBuyPrice*howManyLowerCount > temp) {
+            cash -= Math.floor(temp/howManyLowerCount)*Number(price);
+            power -= Math.floor(temp/howManyLowerCount)*Number(howManyLowerCount);
+            console.log("Subtracted " + Math.floor(temp/howManyLowerCount)*Number(price));
+            console.log(Math.floor(temp/howManyLowerCount) + " from " + temp + " and " + howManyLowerCount);
+            whichCount += Math.floor(howManyLowerCount);
+            whichLowerCount -= Math.floor(temp/howManyLowerCount)*howManyLowerCount;
+          }
+          else {
+            cash -= toBuyPrice*price;
+            power -= Math.floor(cash/price)*howManyLowerCount;
+            console.log("Subtracted " + toBuyPrice*price);
+            
+            whichCount += toBuyPrice;
+            whichLowerCount -= toBuyPrice*howManyLowerCount;
+          }
         }
         else {
-          cash -= toBuyPrice*price;
-          console.log("Subtracted " + toBuyPrice*price);
+          console.log("In here 3");
+          cash -= Number(price);
+          power -= howManyLowerCount;
           
-          whichCount += toBuyPrice;
-          whichLowerCount -= toBuyPrice*howManyLowerCount;
+          whichCount += 1;
+          whichLowerCount -= howManyLowerCount;
         }
+        console.log(whichLowerCount);
+        whichLowerCount = -whichLowerCount;
+        console.log(whichCount, nameHigh);
+        addWhichCountToNumX(whichCount, nameHigh);
+
+        calculateIncome();
+        updateDocumentCounts();
+        document.getElementById(ownXWhat).innerHTML = `You own ${friendlyNum(returnVariable(nameHigh))} ${nameHigh}.`;
+        document.getElementById(totalXWhat).innerHTML = `In total, you earn ${friendlyNum(returnVariable(nameHigh)*profit)} power per second from your ${nameHigh}.`;
       }
       else {
-        console.log("In here 3");
-        cash -= Number(price);
-        
-        whichCount += 1;
-        whichLowerCount -= howManyLowerCount;
+        console.log("Why" + isPower);
+        var temp = 0;
+        whichCount = 0;
+        var temp = whichLowerCount;
+        whichLowerCount = 0;
+        if (buyMultiple) {
+          let toBuyLower = temp;
+          let toBuyPrice = Math.floor(cash/price);
+          
+          if (toBuyPrice*howManyLowerCount > temp) {
+            cash -= Math.floor(temp/howManyLowerCount)*Number(price);
+            console.log("Subtracted " + Math.floor(temp/howManyLowerCount)*Number(price));
+            
+            whichCount += Math.floor(temp/howManyLowerCount);
+            whichLowerCount -= Math.floor(temp/howManyLowerCount)*howManyLowerCount;
+          }
+          else {
+            cash -= toBuyPrice*price;
+            console.log("Subtracted " + toBuyPrice*price);
+            
+            whichCount += toBuyPrice;
+            whichLowerCount -= toBuyPrice*howManyLowerCount;
+          }
+        }
+        else {
+          console.log("In here 3");
+          cash -= Number(price);
+          
+          whichCount += 1;
+          whichLowerCount -= howManyLowerCount;
+        }
+        addWhichCountToNumX(whichCount, nameHigh);
+        addWhichCountToNumX(whichLowerCount, nameLow);
+
+        calculateIncome();
+        updateDocumentCounts();
+        document.getElementById(ownXWhat).innerHTML = `You own ${friendlyNum(returnVariable(nameHigh))} ${nameHigh}.`;
+        document.getElementById(totalXWhat).innerHTML = `In total, you earn $${friendlyNum(returnVariable(nameHigh)*profit)} and ${friendlyNum(returnVariable(nameHigh))} ${nameLow} per second from your ${nameHigh}.`;
+        document.getElementById(ownXWhatLow).innerHTML = `You own ${friendlyNum(returnVariable(nameLow))} ${nameLow}.`;
+        document.getElementById(totalXWhatLow).innerHTML = `In total, you earn $${friendlyNum(returnVariable(nameLow)*lowProfit)} per second from your ${nameLow}.`;
       }
-      addWhichCountToNumX(whichCount, nameHigh);
-      addWhichCountToNumX(whichLowerCount, nameLow);
-
-      calculateIncome();
-      updateDocumentCounts();
-      document.getElementById(ownXWhat).innerHTML = `You own ${friendlyNum(returnVariable(nameHigh))} ${nameHigh}.`;
-      document.getElementById(totalXWhat).innerHTML = `In total, you earn $${friendlyNum(returnVariable(nameHigh)*profit)} and ${friendlyNum(returnVariable(nameHigh))} ${nameLow} per second from your ${nameHigh}.`;
-      document.getElementById(ownXWhatLow).innerHTML = `You own ${friendlyNum(returnVariable(nameLow))} ${nameLow}.`;
-      document.getElementById(totalXWhatLow).innerHTML = `In total, you earn $${friendlyNum(returnVariable(nameLow)*lowProfit)} per second from your ${nameLow}.`;
-
     }
     function returnVariable(x) {
       if (x == "neighborhoods") {
@@ -370,6 +443,9 @@
       else if (x == "districts") {
         return numDistricts;
       }
+      else if (x == "boats") {
+        return numBoats;
+      }
     }
     function addWhichCountToNumX(add, to) {
       if (to == "neighborhoods") {
@@ -380,6 +456,9 @@
       }
       else if (to == "districts") {
         numDistricts += add;
+      }
+      else if (to == "boats") {
+        numBoats += add;
       }
     }
 
@@ -419,16 +498,18 @@
       changeDisplay("progressBars2", "inline-block");
       changeDisplay("progressBarsPower2", "none");
       changeDisplay("soldiersInfo", "none");
+      changeDisplay("boatsInfo", "none");
+
       document.getElementById("streets").style.backgroundColor = "rgba(185,185,185,0.15)";
       document.getElementById("incomeTab").style.color = "black";
-      // document.getElementById("incomeTab").style.backgroundColor = "rgba(187,187,187,0.15)";
-      // document.getElementById("powerTab").style.backgroundColor = "rgba(255,255,255,1)";
-      document.getElementById("powerTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("powerTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("powerTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("incomeTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("incomeTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("incomeTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab2").style.backgroundColor = "rgba(187,187,187,0.15)";
+      document.getElementById("powerTab2").style.backgroundColor = "rgba(255,255,255,1)";
+      document.getElementById("powerTab2").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("powerTab2").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("powerTab2").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("incomeTab2").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab2").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab2").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
     }
     function showPower() {
       changeDisplay("streetsInfo", "none");
@@ -437,8 +518,8 @@
       changeDisplay("powerDropdown", "inline-block");
       changeDisplay("soldiersInfo", "inline-block");
       document.getElementById("soldiers").style.backgroundColor = "rgba(185,185,185,0.15)";
-      // document.getElementById("powerTab").style.backgroundColor = "rgba(187,187,187,0.15)";
-      // document.getElementById("incomeTab").style.backgroundColor = "rgba(255,255,255,1)";
+      document.getElementById("powerTab2").style.backgroundColor = "rgba(187,187,187,0.15)";
+      document.getElementById("incomeTab2").style.backgroundColor = "rgba(255,255,255,1)";
 
       changeDisplay("incomeDropdown", "none");
       changeDisplay("progressBars2", "none");
@@ -446,12 +527,12 @@
       
       document.getElementById("districts").style.backgroundColor = "";
       document.getElementById("neighborhoods").style.backgroundColor = "";
-      document.getElementById("incomeTab").style.borderTopColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("incomeTab").style.borderRightColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("incomeTab").style.borderLeftColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("powerTab").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("powerTab").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("powerTab").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab2").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("incomeTab2").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("incomeTab2").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("powerTab2").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("powerTab2").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("powerTab2").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
     }
     function startGame() {
       changeDisplay("powerDropdown", "none");
@@ -461,7 +542,7 @@
       changeDisplay("progressBarsPower2", "none");
       document.getElementById("streets").style.backgroundColor = "rgba(185,185,185,0.15)";
       // document.getElementById("incomeTab").style.color = "black";
-      // document.getElementById("incomeTab2").style.backgroundColor = "rgba(187,187,187,0.15)";
+      document.getElementById("incomeTab2").style.backgroundColor = "rgba(187,187,187,0.15)";
       doFunction();
     }
     
@@ -564,7 +645,6 @@
           changeDisplay("buyNeighborhood2","inline-block");
           document.getElementById("buyNeighborhood2").onclick = function(){buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', true);};  
           doThing = false;
-
         }
         else {
           document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy)) + " Neighborhoods";
@@ -604,13 +684,13 @@
       // END DISTRICTS
 
       // START SOLDIERS
-      if (cash<10000) {
-        changeDisplay("cantAfford2","inline-block");
+      if (cash<10000 || power<5) {
+        changeDisplay("cantAffordSoldier","inline-block");
         changeDisplay("buySoldier","none");
         changeDisplay("buySoldier2","none");
         }
       else {
-        changeDisplay("cantAfford2","none");
+        changeDisplay("cantAffordSoldier","none");
         changeDisplay("buySoldier","inline-block");
         changeDisplay("buySoldier2","none");
         if (cash>=20000 && power >= 10) {
@@ -620,6 +700,27 @@
           else {var toBuy3 = toBuy2;}
           document.getElementById("buySoldier2").innerHTML = "Buy " + friendlyNum(toBuy3) + " Soldiers";
           changeDisplay("buySoldier2","inline-block");
+        }
+      }
+      // END SOLDIERS
+
+      // START BOATS
+      if (cash<1000000 || power < 100) {
+        changeDisplay("cantAffordBoat","inline-block");
+        changeDisplay("buyBoat","none");
+        changeDisplay("buyBoat2","none");
+        }
+      else {
+        changeDisplay("cantAffordBoat","none");
+        changeDisplay("buyBoat","inline-block");
+        changeDisplay("buyBoat2","none");
+        if (cash>=2000000 && power >= 200) {
+          let toBuy1 = Math.floor(cash/1000000);
+          let toBuy2 = Math.floor(power/100);
+          if (toBuy1 < toBuy2) {var toBuy3 = toBuy1;}
+          else {var toBuy3 = toBuy2;}
+          document.getElementById("buyBoat2").innerHTML = "Buy " + friendlyNum(toBuy3) + " Boats";
+          changeDisplay("buyBoat2","inline-block");
         }
       }
       // END SOLDIERS
@@ -634,6 +735,7 @@
       var accessVarNeighborhoods = 0;
       var accessVarDistricts = 0;
       var accessVarSoldiers = 0;
+      var accessVarBoats = 0;
 
       var inst = setInterval(change, 1); // update income tab
 
@@ -667,9 +769,19 @@
           if (accessVarSoldiers%200 == 0) {
             power += incomeSoldiers;
             element2.innerHTML = "Power: " + friendlyNum(power);
-
-        updateDocumentCounts();
-        calculateIncome();
+          updateDocumentCounts();
+          calculateIncome();
+          }
+        }
+        if (numBoats > 0) {
+          changeDisplay("progressBoats", "inline-block");
+          accessVarBoats += 1;
+          move("progressBoatsBar", (((accessVarBoats)%200/2)%100));
+          if (accessVarBoats%200 == 0) {
+            power += incomeBoats;
+            element2.innerHTML = "Power: " + friendlyNum(power);
+          updateDocumentCounts();
+          calculateIncome();
           }
         }
         document.getElementById("ownXStreets").innerHTML = `You own ${friendlyNum(numStreets)} streets.`;
