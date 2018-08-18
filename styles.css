@@ -25,32 +25,40 @@
 #startGameButton:hover {
   background: rgb(245, 245, 245);}
 .powerTab2 {
-  width: 48%;
+  /* width: 48%; */
   display: inline-block;
   /* margin-left: 2%; */
   cursor: pointer;
   display: inline-block;
-  border-top: 1px solid rgba(187, 187, 187, 0);
+  /* border-top: 1px solid rgba(187, 187, 187, 0);
   border-left: 1px solid rgba(187, 187, 187, 0);
   border-right: 1px solid rgba(187, 187, 187, 0);
   border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-right-radius: 10px; */
+  border: 1px solid rgba(187, 187, 187, 0);
+  border-radius: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 15px;}
+  padding-left: 15px;
+  padding-right: 15px;
+}
 .incomeTab2 {
   /* margin-left: 2%; */
   cursor: pointer !important;
   display: inline-block;
-  border-top: 1px solid rgba(187, 187, 187, 0.4);
+  /* border-top: 1px solid rgba(187, 187, 187, 0.4);
   border-left: 1px solid rgba(187, 187, 187, 0.4);
   border-right: 1px solid rgba(187, 187, 187, 0.4);
   border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-right-radius: 10px; */
+  border: 1px solid rgba(187,187,187,0.4);
+  border-radius: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 15px;
-  width: 48%;
+  padding-right: 15px;
+
+  /* width: 48%; */
   display: inline-block;
 }
 #incomeTab {

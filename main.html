@@ -17,7 +17,7 @@
     <div id="rowOfSelect">
       <div id="tabs">
         <div id="incomeTab2" class="incomeTab2" onclick="showIncome()"><div id="cash">Wealth: $0</div><div class="tabs" id="incomeTab">5/s ⤵</div></div>
-        <div id="powerTab2" class="powerTab2" onclick="showPower()"><div id="power">Power: 0</div><div class="tabs" id="powerTab">Power: 1/s ⤵</div></div>
+        <div id="powerTab2" class="powerTab2" onclick="showPower()"><div id="power">Power: 0</div><div class="tabs" id="powerTab">1/s ⤵</div></div>
       </div>
 
       <hr id="hrId" class="hr">
@@ -60,7 +60,7 @@
           <p>Each street earns $5/second.</p>
           <p id="totalXStreets">In total, you earn $5/second from your streets.</p>
           <hr>
-          <p>Buying 1 street costs $50.</p>
+          <p>Buying 1 street costs $50 and 1 power.</p>
           <div id="cantAfford" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
           <div id="buyStreet" style="display:none" onclick="buyStreets(false)" class="buyButton">Buy 1 Street</div>
           <div id="buyStreet2" style="display:none" onclick="buyStreets(true)" class="buyButton2">Buy 2 Streets</div>
@@ -72,7 +72,7 @@
           <p>Each neighborhood earns $30/s and 1 street per 5 seconds.</p>
           <p id="totalXNeighborhoods">In total, you earn $0 and 0 streets per second from your neighborhoods.</p>
           <hr>
-          <p>Buying 1 neighborhood costs $10,000 and 20 streets.</p>
+          <p>Buying 1 neighborhood costs $10,000, 20 streets, and 1 power.</p>
           <div id="cantAffordNeighborhood" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
           <div id="buyNeighborhood" style="display:none" onclick="buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, false, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false)" class="buyButton">Buy 1 Neighborhood</div>
           <div id="buyNeighborhood2" style="display:none" onclick="buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false)" class="buyButton2">Buy 2 Neighborhoods</div>
@@ -84,7 +84,7 @@
           <p>Each district earns $250/s and 1 neighborhood per 5 seconds.</p>
           <p id="totalXDistricts">In total, you earn $0 and 0 neighborhoods per second from your districts.</p>
           <hr>
-          <p>Buying 1 district costs $2,000,000 and 50 neighborhoods.</p>
+          <p>Buying 1 district costs $2,000,000, 50 neighborhoods, and 1 power.</p>
           <div id="cantAffordDistrict" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
           <div id="buyDistrict" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, false, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false)" class="buyButton">Buy 1 District</div>
           <div id="buyDistrict2" style="display:none" onclick="buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false)" class="buyButton2">Buy 2 Districts</div>
@@ -144,6 +144,156 @@
   </div>
   
   <script>
+    // https://github.com/turuslan/HackTimer
+    (function (workerScript) {
+	if (!/MSIE 10/i.test (navigator.userAgent)) {
+		try {
+			var blob = new Blob (["\
+var fakeIdToId = {};\
+onmessage = function (event) {\
+	var data = event.data,\
+		name = data.name,\
+		fakeId = data.fakeId,\
+		time;\
+	if(data.hasOwnProperty('time')) {\
+		time = data.time;\
+	}\
+	switch (name) {\
+		case 'setInterval':\
+			fakeIdToId[fakeId] = setInterval(function () {\
+				postMessage({fakeId: fakeId});\
+			}, time);\
+			break;\
+		case 'clearInterval':\
+			if (fakeIdToId.hasOwnProperty (fakeId)) {\
+				clearInterval(fakeIdToId[fakeId]);\
+				delete fakeIdToId[fakeId];\
+			}\
+			break;\
+		case 'setTimeout':\
+			fakeIdToId[fakeId] = setTimeout(function () {\
+				postMessage({fakeId: fakeId});\
+				if (fakeIdToId.hasOwnProperty (fakeId)) {\
+					delete fakeIdToId[fakeId];\
+				}\
+			}, time);\
+			break;\
+		case 'clearTimeout':\
+			if (fakeIdToId.hasOwnProperty (fakeId)) {\
+				clearTimeout(fakeIdToId[fakeId]);\
+				delete fakeIdToId[fakeId];\
+			}\
+			break;\
+	}\
+}\
+"]);
+			// Obtain a blob URL reference to our worker 'file'.
+			workerScript = window.URL.createObjectURL(blob);
+		} catch (error) {
+			/* Blob is not supported, use external script instead */
+		}
+	}
+	var worker,
+		fakeIdToCallback = {},
+		lastFakeId = 0,
+		maxFakeId = 0x7FFFFFFF, // 2 ^ 31 - 1, 31 bit, positive values of signed 32 bit integer
+		logPrefix = 'HackTimer.js by turuslan: ';
+	if (typeof (Worker) !== 'undefined') {
+		function getFakeId () {
+			do {
+				if (lastFakeId == maxFakeId) {
+					lastFakeId = 0;
+				} else {
+					lastFakeId ++;
+				}
+			} while (fakeIdToCallback.hasOwnProperty (lastFakeId));
+			return lastFakeId;
+		}
+		try {
+			worker = new Worker (workerScript);
+			window.setInterval = function (callback, time /* , parameters */) {
+				var fakeId = getFakeId ();
+				fakeIdToCallback[fakeId] = {
+					callback: callback,
+					parameters: Array.prototype.slice.call(arguments, 2)
+				};
+				worker.postMessage ({
+					name: 'setInterval',
+					fakeId: fakeId,
+					time: time
+				});
+				return fakeId;
+			};
+			window.clearInterval = function (fakeId) {
+				if (fakeIdToCallback.hasOwnProperty(fakeId)) {
+					delete fakeIdToCallback[fakeId];
+					worker.postMessage ({
+						name: 'clearInterval',
+						fakeId: fakeId
+					});
+				}
+			};
+			window.setTimeout = function (callback, time /* , parameters */) {
+				var fakeId = getFakeId ();
+				fakeIdToCallback[fakeId] = {
+					callback: callback,
+					parameters: Array.prototype.slice.call(arguments, 2),
+					isTimeout: true
+				};
+				worker.postMessage ({
+					name: 'setTimeout',
+					fakeId: fakeId,
+					time: time
+				});
+				return fakeId;
+			};
+			window.clearTimeout = function (fakeId) {
+				if (fakeIdToCallback.hasOwnProperty(fakeId)) {
+					delete fakeIdToCallback[fakeId];
+					worker.postMessage ({
+						name: 'clearTimeout',
+						fakeId: fakeId
+					});
+				}
+			};
+			worker.onmessage = function (event) {
+				var data = event.data,
+					fakeId = data.fakeId,
+					request,
+					parameters,
+					callback;
+				if (fakeIdToCallback.hasOwnProperty(fakeId)) {
+					request = fakeIdToCallback[fakeId];
+					callback = request.callback;
+					parameters = request.parameters;
+					if (request.hasOwnProperty ('isTimeout') && request.isTimeout) {
+						delete fakeIdToCallback[fakeId];
+					}
+				}
+				if (typeof (callback) === 'string') {
+					try {
+						callback = new Function (callback);
+					} catch (error) {
+						console.log (logPrefix + 'Error parsing callback code string: ', error);
+					}
+				}
+				if (typeof (callback) === 'function') {
+					callback.apply (window, parameters);
+				}
+			};
+			worker.onerror = function (event) {
+				console.log (event);
+			};
+			// console.log (logPrefix + 'Initialisation succeeded');
+		} catch (error) {
+			console.log (logPrefix + 'Initialisation failed');
+			console.error (error);
+		}
+	} else {
+		console.log (logPrefix + 'Initialisation failed - HTML5 Web Worker is not supported');
+	}
+}) ('HackTimerWorker.js');
+
     var numPlanets = Number(document.getElementById("planetsCount").innerText);
     var numContinents = Number(document.getElementById("continentsCount").innerText);
     var numCountries = Number(document.getElementById("countriesCount").innerText);
@@ -298,7 +448,7 @@
       incomeStreets = numStreets*5;
 
       powerIncome = numSoldiers * 1 + numBoats * 3;
-      document.getElementById("powerTab").innerHTML = `Power: ${friendlyNum(powerIncome)}/s ⤵`
+      document.getElementById("powerTab").innerHTML = `${friendlyNum(powerIncome)}/s ⤵`
       
       incomeBoats = numBoats * 3;
       incomeSoldiers = numSoldiers * 1;
@@ -331,13 +481,22 @@
     
     function buyStreets(buyMultiple) {
       if (buyMultiple) {
-        let toBuy = Math.floor(cash/50);
-        cash -= toBuy*50;
-        numStreets += toBuy;
+        if (power < Math.floor(cash/50)) {
+          cash -= power*50;
+          numStreets += power;
+          power -= power;
+        }
+        else {
+          let toBuy = Math.floor(cash/50);
+          cash -= toBuy*50;
+          numStreets += toBuy;
+          power -= toBuy;
+        }
       }
       else {
         cash -= 50;
         numStreets += 1;
+        power -= 1;
       }
       calculateIncome();
       updateDocumentCounts();
@@ -347,6 +506,7 @@
     function buyThing(price, profit, lowProfit, whichLowerCount, whichCount, howManyLowerCount, buyMultiple, ownXWhat, ownXWhatLow, totalXWhat, totalXWhatLow, nameHigh, nameLow, isPower) {
       console.log("How many lower count is " + howManyLowerCount);
       if (isPower) {
+        console.log("This isn't supposed to be here");
         var temp = 0;
         whichCount = 0;
         var temp = whichLowerCount;
@@ -354,16 +514,15 @@
         if (buyMultiple) {
           let toBuyLower = temp;
           let toBuyPrice = Math.floor(cash/price);
-          
-          if (toBuyPrice*howManyLowerCount > temp) {
+          if (toBuyPrice*howManyLowerCount > temp) { // Go off of numX below it
             cash -= Math.floor(temp/howManyLowerCount)*Number(price);
             power -= Math.floor(temp/howManyLowerCount)*Number(howManyLowerCount);
             console.log("Subtracted " + Math.floor(temp/howManyLowerCount)*Number(price));
             console.log(Math.floor(temp/howManyLowerCount) + " from " + temp + " and " + howManyLowerCount);
-            whichCount += Math.floor(howManyLowerCount);
+            whichCount += Math.floor(temp/howManyLowerCount)
             whichLowerCount -= Math.floor(temp/howManyLowerCount)*howManyLowerCount;
           }
-          else {
+          else { // Go off amount of cash
             cash -= toBuyPrice*price;
             power -= Math.floor(cash/price)*howManyLowerCount;
             console.log("Subtracted " + toBuyPrice*price);
@@ -399,25 +558,37 @@
         if (buyMultiple) {
           let toBuyLower = temp;
           let toBuyPrice = Math.floor(cash/price);
-          
-          if (toBuyPrice*howManyLowerCount > temp) {
+          if (power < Math.floor(temp/howManyLowerCount) || power < toBuyPrice || true) { // Go off of power
+            console.log("Tested power, " + power + ", temp/howManyLowerCount, " + temp/howManyLowerCount, + ", and toBuyPrice, " + toBuyPrice);
+            cash -= (power*price);
+            console.log("That costed " + power*price);
+            whichCount += power;
+            console.log("Added " + power + " to " + nameHigh);
+            power -= power;
+          }
+          else if (toBuyPrice*howManyLowerCount > temp) {
             cash -= Math.floor(temp/howManyLowerCount)*Number(price);
             console.log("Subtracted " + Math.floor(temp/howManyLowerCount)*Number(price));
             
             whichCount += Math.floor(temp/howManyLowerCount);
+            console.log("Added " + temp/howManyLowerCount);
             whichLowerCount -= Math.floor(temp/howManyLowerCount)*howManyLowerCount;
+            power -= power;
           }
           else {
             cash -= toBuyPrice*price;
             console.log("Subtracted " + toBuyPrice*price);
             
             whichCount += toBuyPrice;
+            console.log("Added " + toBuyPrice);
             whichLowerCount -= toBuyPrice*howManyLowerCount;
+            power -= power;
           }
         }
         else {
           console.log("In here 3");
           cash -= Number(price);
+          power -= 1;
           
           whichCount += 1;
           whichLowerCount -= howManyLowerCount;
@@ -504,12 +675,16 @@
       document.getElementById("incomeTab").style.color = "black";
       document.getElementById("incomeTab2").style.backgroundColor = "rgba(187,187,187,0.15)";
       document.getElementById("powerTab2").style.backgroundColor = "rgba(255,255,255,1)";
-      document.getElementById("powerTab2").style.borderTopColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("powerTab2").style.borderRightColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("powerTab2").style.borderLeftColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("incomeTab2").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("incomeTab2").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("incomeTab2").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      // document.getElementById("powerTab2").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      // document.getElementById("powerTab2").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      // document.getElementById("powerTab2").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      // document.getElementById("incomeTab2").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      // document.getElementById("incomeTab2").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      // document.getElementById("incomeTab2").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab2").style.borderColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("powerTab2").style.borderColor = "rgba(187, 187, 187, 0)";
+
+
     }
     function showPower() {
       changeDisplay("streetsInfo", "none");
@@ -527,12 +702,14 @@
       
       document.getElementById("districts").style.backgroundColor = "";
       document.getElementById("neighborhoods").style.backgroundColor = "";
-      document.getElementById("incomeTab2").style.borderTopColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("incomeTab2").style.borderRightColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("incomeTab2").style.borderLeftColor = "rgba(187, 187, 187, 0)";
-      document.getElementById("powerTab2").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("powerTab2").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
-      document.getElementById("powerTab2").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      // document.getElementById("incomeTab2").style.borderTopColor = "rgba(187, 187, 187, 0)";
+      // document.getElementById("incomeTab2").style.borderRightColor = "rgba(187, 187, 187, 0)";
+      // document.getElementById("incomeTab2").style.borderLeftColor = "rgba(187, 187, 187, 0)";
+      // document.getElementById("powerTab2").style.borderTopColor = "rgba(187, 187, 187, 0.4)";
+      // document.getElementById("powerTab2").style.borderRightColor = "rgba(187, 187, 187, 0.4)";
+      // document.getElementById("powerTab2").style.borderLeftColor = "rgba(187, 187, 187, 0.4)";
+      document.getElementById("incomeTab2").style.borderColor = "rgba(187, 187, 187, 0)";
+      document.getElementById("powerTab2").style.borderColor = "rgba(187, 187, 187, 0.4)";
     }
     function startGame() {
       changeDisplay("powerDropdown", "none");
@@ -609,25 +786,50 @@
 
       
       // START STREETS
-      if (cash<50) {
-        changeDisplay("cantAfford","inline-block");
-        changeDisplay("buyStreet","none");
-        changeDisplay("buyStreet2","none");
-        }
-      else {
+      // if (cash<50) {
+      //   changeDisplay("cantAfford","inline-block");
+      //   changeDisplay("buyStreet","none");
+      //   changeDisplay("buyStreet2","none");
+      //   }
+      // else {
+      //   changeDisplay("cantAfford","none");
+      //   changeDisplay("buyStreet","inline-block");
+      //   changeDisplay("buyStreet2","none");
+      //   if (power < Math.floor(cash/50)) {
+      //     document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(power) + " Streets";
+      //     changeDisplay("buyStreet2","inline-block");
+      //   }
+      //   else if (cash>=100) {
+      //     let toBuy = Math.floor(cash/50);
+      //     document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(toBuy) + " Streets";
+      //     changeDisplay("buyStreet2","inline-block");
+      //   }
+      // }
+      if (cash > 50 && power >= 1) {
         changeDisplay("cantAfford","none");
         changeDisplay("buyStreet","inline-block");
         changeDisplay("buyStreet2","none");
-        if (cash>=100) {
-          let toBuy = Math.floor(cash/50);
-          document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(toBuy) + " Streets";
-          changeDisplay("buyStreet2","inline-block");
+        if (power >= 2) {
+          if (power < Math.floor(cash/50)) {
+            document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(power) + " Streets";
+            changeDisplay("buyStreet2","inline-block");
+          }
+          else if (cash>=100) {
+            let toBuy = Math.floor(cash/50);
+            document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(toBuy) + " Streets";
+            changeDisplay("buyStreet2","inline-block");
+          }
         }
+      }
+      else {
+        changeDisplay("cantAfford","inline-block");
+        changeDisplay("buyStreet","none");
+        changeDisplay("buyStreet2","none");
       }
       // END STREETS
 
       // START NEIGHBORHOODS
-      if (cash>10000 && numStreets >= 20) {
+      if (cash>10000 && numStreets >= 20 && power >= 1) {
         changeDisplay("cantAffordNeighborhood","none");
         changeDisplay("buyNeighborhood","inline-block");
         // changeDisplay("buyNeighborhood2","none");
@@ -637,26 +839,30 @@
         changeDisplay("buyNeighborhood","none");
         changeDisplay("buyNeighborhood2","none");
       }
-      if (cash>=20000 && numStreets > 40) {
+      if (cash>=20000 && numStreets > 40 && power >= 2) {
         let toBuy = Math.floor(cash/10000); // How many can buy with cash
         let toBuy1 = numStreets; // How many can buy with streets
-        if (toBuy*20 > toBuy1) {
+        if (power < (toBuy*20) || power < (toBuy1)) {
+          changeDisplay("buyNeighborhood2","inline-block");
+          document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(power) + " Neighborhoods";
+        }
+        else if (toBuy*20 > toBuy1) {
           document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/20)) + " Neighborhoods";
           changeDisplay("buyNeighborhood2","inline-block");
-          document.getElementById("buyNeighborhood2").onclick = function(){buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', true);};  
+          document.getElementById("buyNeighborhood2").onclick = function(){buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false);};  
           doThing = false;
         }
         else {
           document.getElementById("buyNeighborhood2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy)) + " Neighborhoods";
           changeDisplay("buyNeighborhood2","inline-block");
-          document.getElementById("buyNeighborhood2").onclick = function(){buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, true, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false);};
+          document.getElementById("buyNeighborhood2").onclick = function(){buyThing(10000, 30, 5, numStreets, numNeighborhoods, 20, false, 'ownXNeighborhoods', 'ownXStreets', 'totalXNeighborhoods', 'totalXStreets', 'neighborhoods', 'streets', false);};
           doThing = false;
         }
       }
       // END NEIGHBORHOODS
 
       // START DISTRICTS
-      if (cash>2000000 && numNeighborhoods >= 50) {
+      if (cash>2000000 && numNeighborhoods >= 50 && power >= 1) {
         changeDisplay("cantAffordDistrict","none");
         changeDisplay("buyDistrict","inline-block");
         changeDisplay("buyDistrict2","none");
@@ -666,18 +872,21 @@
         changeDisplay("buyDistrict","none");
         changeDisplay("buyDistrict2","none");
       }
-      if (cash>=4000000 && numNeighborhoods > 100) {
+      if (cash>=4000000 && numNeighborhoods > 100 && power >= 2) {
         let toBuy = Math.floor(cash/2000000);
         let toBuy1 = numNeighborhoods;
-        if (toBuy*50 > toBuy1) {
+        if (power < (toBuy*50) || power < (toBuy1)) {
+          document.getElementById("buyDistrict2").innerHTML = "Buy " + friendlyNum(power) + " Districts";
+        }
+        else if (toBuy*50 > toBuy1) {
           document.getElementById("buyDistrict2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy1/50)) + " Districts";
           changeDisplay("buyDistrict2","inline-block");
-          document.getElementById("buyDistrict2").onclick = function(){buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', true);};  
+          document.getElementById("buyDistrict2").onclick = function(){buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false);};  
         }
         else {
           document.getElementById("buyDistrict2").innerHTML = "Buy " + friendlyNum(Math.floor(toBuy)) + " Districts";
           changeDisplay("buyDistrict2","inline-block");
-          document.getElementById("buyDistrict2").onclick = function(){buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, true, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false);};  
+          document.getElementById("buyDistrict2").onclick = function(){buyThing(2000000, 250, 30, numNeighborhoods, numDistricts, 50, false, 'ownXDistricts', 'ownXNeighborhoods', 'totalXDistricts', 'totalXNeighborhoods', 'districts', 'neighborhoods', false);};  
 
         }
       }
