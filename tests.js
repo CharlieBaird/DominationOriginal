@@ -81,5 +81,5 @@ function friendlyNum(num) {
 // console.log(friendlyNum(32473264762)) //  32,473,264,762 32.47B
 // console.log(friendlyNum(376587326576237856723)) //376,587,326,576,237,856,723 376.5 Quintillion
 // console.log(friendlyNum(621784612876417264712641677777777777))
-console.log(friendlyNum(205644884));
+console.log(friendlyNum(12000000000000000));
 
