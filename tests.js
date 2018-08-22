@@ -23,10 +23,20 @@ function numberToString(num) {
 
 function friendlyNum(num) {
   var num = numberToString(num);
-  console.log(num);
-  let friendlyList = ["M", "B", "T", " Quad", " Quint", " Sext", " Sept", " Oct", " Non", "*10<sup>33</sup>"];
-  if (String(num).length > 5) {
-    var length = (Math.floor(Number(String(num).length-1)/3))-2; //issue here somewhere
+  var friendlyList = ["M", "B", "T", " Quad", " Quint", " Sext", " Sept", " Oct", " Non"];
+  if (didntForLoop == undefined) {
+    var didntForLoop = true;
+  }
+  if (didntForLoop) {
+    for (i=33; i<10000; i++) {
+      if (i%3 == 0) {
+        friendlyList.push(`*10<sup>${i}</sup>`);
+      }
+      var didntForLoop = false;
+    }
+  }
+  if (String(num).length > 6) {
+    var length = (Math.floor(Number(String(num).length-1)/3))-2;
     let remainder = String(num).length%3;
     let num2 = String(num).substr(0,4)
 
@@ -37,7 +47,6 @@ function friendlyNum(num) {
       let word1 = String(num).substr(0,1);
       let word2 = String(num).substr(2,num.length);
       num = word1 + word2;
-      // console.log("word1 is -" + word1 + "- word2 is -" + word2 + "-" + num);
     }
 
     if (remainder == 0) {
@@ -66,20 +75,6 @@ function friendlyNum(num) {
     return (num);
   }
 }
-
-// console.log(friendlyNum(1101000)) // 1.000M 1,101,000
-// console.log(friendlyNum(12010001)) // 1.000M
-// console.log(friendlyNum(130100011)) // 1.000M
-// console.log(friendlyNum(1401000111)) // 1.000M
-// console.log(friendlyNum(15010001111)) // 1.000M
-// console.log(friendlyNum(160100011111)) // 1.000M
-// console.log(friendlyNum(1701000111111)) // 1.000M
-// console.log(friendlyNum(18010001111111)) // 1.000M
-// console.log(friendlyNum(190100011111111)) // 1.000M
-// console.log(friendlyNum(190100011111111111111136576235726823647236482634862374)) // 1.000M
-// console.log(friendlyNum(128824214421)) //128,824,214,421 128.8B
-// console.log(friendlyNum(32473264762)) //  32,473,264,762 32.47B
-// console.log(friendlyNum(376587326576237856723)) //376,587,326,576,237,856,723 376.5 Quintillion
-// console.log(friendlyNum(621784612876417264712641677777777777))
-console.log(friendlyNum(12000000000000000));
+console.log(friendlyNum(120000000000000007237489128463287463333333236273856782365786238756237856082657823723678562786578236587268975692873657182635782635789623785623785628736587236587926357823657823675826378561111111111111111111122233344455566677788899956378562879365872365987263523659786239587623879562783965978123653333333333344434));
+console.log((String(120000000000000007237489128463287463333333236273856782365786238756237856082657823723678562786578236587268975692873657182635782635789623785623785628736587236587926357823657823675826378561111111111111111111122233344455566677788899956378562879365872365987263523659786239587623879562783965978123653333333333344434)));
 
