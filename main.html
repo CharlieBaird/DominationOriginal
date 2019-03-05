@@ -848,10 +848,10 @@ onmessage = function (event) {\
 
       income = incomeStreets + incomeNeighborhoods + incomeDistricts + incomeTowns + incomeCities + incomeMegacities +
         incomeCounties + incomeStates + incomeCountries + incomeContinents + incomePlanets;
-      document.getElementById("incomeTab").innerHTML = `$${friendlyNum(income)}/s ⤵`;
+      document.getElementById("incomeTab").innerHTML = `$${friendlyNum(income)}/s`;
 
       powerIncome = numSoldiers * 1 + numBoats * 3;
-      document.getElementById("powerTab").innerHTML = `${friendlyNum(powerIncome)}/s ⤵`
+      document.getElementById("powerTab").innerHTML = `${friendlyNum(powerIncome)}/s`
       
       incomeBoats = numBoats * 3;
       incomeSoldiers = numSoldiers * 1;
