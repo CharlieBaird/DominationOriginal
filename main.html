@@ -411,17 +411,20 @@ onmessage = function (event) {\
 	}
 }) ('HackTimerWorker.js');
 
-    var numPlanets = Number(document.getElementById("planetsCount").innerText);
-    var numContinents = Number(document.getElementById("continentsCount").innerText);
-    var numCountries = Number(document.getElementById("countriesCount").innerText);
-    var numStates = Number(document.getElementById("statesCount").innerText);
-    var numCounties = Number(document.getElementById("countiesCount").innerText);
-    var numMegacities = Number(document.getElementById("megacitiesCount").innerText);
-    var numCities = Number(document.getElementById("citiesCount").innerText);
-    var numTowns = Number(document.getElementById("townsCount").innerText);
-    var numDistricts = Number(document.getElementById("districtsCount").innerText);
-    var numNeighborhoods = Number(document.getElementById("neighborhoodsCount").innerText);
-    var numStreets = Number(document.getElementById("streetsCount").innerText);
+    var incomeMultiplier = 5; // Normal = 5
+    var powerMultiplier = 1; // Normal = 1
+
+    var numPlanets = Number(document.getElementById("planetsCount").innerHTML);
+    var numContinents = Number(document.getElementById("continentsCount").innerHTML);
+    var numCountries = Number(document.getElementById("countriesCount").innerHTML);
+    var numStates = Number(document.getElementById("statesCount").innerHTML);
+    var numCounties = Number(document.getElementById("countiesCount").innerHTML);
+    var numMegacities = Number(document.getElementById("megacitiesCount").innerHTML);
+    var numCities = Number(document.getElementById("citiesCount").innerHTML);
+    var numTowns = Number(document.getElementById("townsCount").innerHTML);
+    var numDistricts = Number(document.getElementById("districtsCount").innerHTML);
+    var numNeighborhoods = Number(document.getElementById("neighborhoodsCount").innerHTML);
+    var numStreets = Number(document.getElementById("streetsCount").innerHTML);
     var incomePlanets = 0;
     var incomeContinents = 0;
     var incomeCountries = 0;
@@ -434,15 +437,15 @@ onmessage = function (event) {\
     var incomeNeighborhoods = 0;
     var incomeStreets = 0;
 
-    var numHeavyTanks = Number(document.getElementById("heavyTanksCount").innerText);
-    var numAdvancedPlanes = Number(document.getElementById("advancedPlanesCount").innerText);
-    var numAircraftCarriers = Number(document.getElementById("aircraftCarriersCount").innerText);
-    var numTanks = Number(document.getElementById("tanksCount").innerText);
-    var numPlanes = Number(document.getElementById("planesCount").innerText);
-    var numHelicopters = Number(document.getElementById("helicoptersCount").innerText);
-    var numSubmarines = Number(document.getElementById("submarinesCount").innerText);
-    var numBoats = Number(document.getElementById("boatsCount").innerText);
-    var numSoldiers = Number(document.getElementById("soldiersCount").innerText);
+    var numHeavyTanks = Number(document.getElementById("heavyTanksCount").innerHTML);
+    var numAdvancedPlanes = Number(document.getElementById("advancedPlanesCount").innerHTML);
+    var numAircraftCarriers = Number(document.getElementById("aircraftCarriersCount").innerHTML);
+    var numTanks = Number(document.getElementById("tanksCount").innerHTML);
+    var numPlanes = Number(document.getElementById("planesCount").innerHTML);
+    var numHelicopters = Number(document.getElementById("helicoptersCount").innerHTML);
+    var numSubmarines = Number(document.getElementById("submarinesCount").innerHTML);
+    var numBoats = Number(document.getElementById("boatsCount").innerHTML);
+    var numSoldiers = Number(document.getElementById("soldiersCount").innerHTML);
     var incomeHeavyTanks = 0;
     var incomeAdvancedPlanes = 0;
     var incomeAircraftCarriers = 0;
@@ -1178,12 +1181,12 @@ onmessage = function (event) {\
         changeDisplay("buyStreet2","none");
         if (power >= 2) {
           if (power < Math.floor(cash/50)) {
-            document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(power) + " Streets";
+            document.getElementById("buyStreet2").innerText = "Buy " + friendlyNum(power) + " Streets";
             changeDisplay("buyStreet2","inline-block");
           }
           else if (cash>=100) {
             let toBuy = Math.floor(cash/50);
-            document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(toBuy) + " Streets";
+            document.getElementById("buyStreet2").innerText = "Buy " + friendlyNum(toBuy) + " Streets";
             changeDisplay("buyStreet2","inline-block");
           }
         }
@@ -1293,7 +1296,7 @@ onmessage = function (event) {\
       var inst = setInterval(change, 1); // update income tab
 
       function change() {
-        cash += Math.floor(incomeStreets/5);
+        cash += Math.floor(incomeStreets/incomeMultiplier);
         element.innerHTML = "Wealth: $" + friendlyNum(cash);
 
         updateDocumentCounts();
@@ -1307,7 +1310,7 @@ onmessage = function (event) {\
             numStreets += (Math.floor(numNeighborhoods));
             document.getElementById("ownXStreets").innerHTML = `You own ${friendlyNum(numStreets)} streets.`;
             document.getElementById("totalXStreets").innerHTML = `In total, you earn $${friendlyNum(numStreets*5)}/second from your streets.`;
-            cash += Math.floor(incomeNeighborhoods);
+            cash += Math.floor(incomeNeighborhoods/incomeMultiplier);
           }
         }
         if (numDistricts > 0) {
@@ -1317,7 +1320,7 @@ onmessage = function (event) {\
             numNeighborhoods += (numDistricts);
             document.getElementById("ownXNeighborhoods").innerHTML = `You own ${friendlyNum(numNeighborhoods)} neighborhoods.`;
             document.getElementById("totalXNeighborhoods").innerHTML = `In total, you earn $${friendlyNum(numNeighborhoods*30)}/second and ${friendlyNum(numNeighborhoods)} streets per 5 seconds from your neighborhoods.`;
-            cash += Math.floor(incomeDistricts);
+            cash += Math.floor(incomeDistricts/incomeMultiplier);
           }
         }
         if (numTowns > 0) {
@@ -1327,7 +1330,7 @@ onmessage = function (event) {\
             numDistricts += (numTowns);
             document.getElementById("ownXDistricts").innerHTML = `You own ${friendlyNum(numDistricts)} districts.`;
             document.getElementById("totalXDistricts").innerHTML = `In total, you earn $${friendlyNum(numDistricts*250)}/second and ${friendlyNum(numDistricts)} neighborhoods per 5 seconds from your districts.`;
-            cash += Math.floor(incomeTowns);
+            cash += Math.floor(incomeTowns/incomeMultiplier);
           }
         }
         if (numCities > 0) {
@@ -1337,7 +1340,7 @@ onmessage = function (event) {\
             numTowns += (numCities);
             document.getElementById("ownXTowns").innerHTML = `You own ${friendlyNum(numTowns)} towns.`;
             document.getElementById("totalXTowns").innerHTML = `In total, you earn $${friendlyNum(numTowns*2000)}/second and ${friendlyNum(numTowns)} districts per 10 seconds from your towns.`;
-            cash += Math.floor(incomeCities);
+            cash += Math.floor(incomeCities/incomeMultiplier);
           }
         }
         if (numMegacities > 0) {
@@ -1347,7 +1350,7 @@ onmessage = function (event) {\
             numCities += (numMegacities);
             document.getElementById("ownXCities").innerHTML = `You own ${friendlyNum(numCities)} cities.`;
             document.getElementById("totalXCities").innerHTML = `In total, you earn $${friendlyNum(numCities*15000)}/second and ${friendlyNum(numCities)} towns per 10 seconds from your cities.`;
-            cash += Math.floor(incomeMegacities);
+            cash += Math.floor(incomeMegacities/incomeMultiplier);
           }
         }
         if (numCounties > 0) {
@@ -1357,7 +1360,7 @@ onmessage = function (event) {\
             numMegacities += (numCounties);
             document.getElementById("ownXMegacities").innerHTML = `You own ${friendlyNum(numMegacities)} megacities.`;
             document.getElementById("totalXMegacities").innerHTML = `In total, you earn $${friendlyNum(numMegacities*125000)}/second and ${friendlyNum(numMegacities)} cities per 15 seconds from your megacities.`;
-            cash += Math.floor(incomeCounties);
+            cash += Math.floor(incomeCounties/incomeMultiplier);
           }
         }
         if (numStates > 0) {
@@ -1367,7 +1370,7 @@ onmessage = function (event) {\
             numCounties += (numStates);
             document.getElementById("ownXCounties").innerHTML = `You own ${friendlyNum(numCounties)} megacities.`;
             document.getElementById("totalXCounties").innerHTML = `In total, you earn $${friendlyNum(numCounties*1000000)}/second and ${friendlyNum(numCounties)} megacities per 15 seconds from your counties.`;
-            cash += Math.floor(incomeStates);
+            cash += Math.floor(incomeStates/incomeMultiplier);
           }
         }
         if (numCountries > 0) {
@@ -1377,7 +1380,7 @@ onmessage = function (event) {\
             numStates += (numCountries);
             document.getElementById("ownXStates").innerHTML = `You own ${friendlyNum(numStates)} states.`;
             document.getElementById("totalXStates").innerHTML = `In total, you earn $${friendlyNum(numStates*7200000)}/second and ${friendlyNum(numStates)} counties per 20 seconds from your states.`;
-            cash += Math.floor(incomeCountries);
+            cash += Math.floor(incomeCountries/incomeMultiplier);
           }
         }
         if (numContinents > 0) {
@@ -1387,7 +1390,7 @@ onmessage = function (event) {\
             numCountries += (numContinents);
             document.getElementById("ownXCountries").innerHTML = `You own ${friendlyNum(numCountries)} countries.`;
             document.getElementById("totalXCountries").innerHTML = `In total, you earn $${friendlyNum(numCountries*60000000)}/second and ${friendlyNum(numCountries)} states per 20 seconds from your countries.`;
-            cash += Math.floor(incomeContinents);
+            cash += Math.floor(incomeContinents/incomeMultiplier);
           }
         }
         if (numPlanets > 0) {
@@ -1397,14 +1400,14 @@ onmessage = function (event) {\
             numContinents += (numPlanets);
             document.getElementById("ownXContinents").innerHTML = `You own ${friendlyNum(numContinents)} continents.`;
             document.getElementById("totalXContinents").innerHTML = `In total, you earn $${friendlyNum(numContinents*500000000)}/second and ${friendlyNum(numContinents)} countries per 25 seconds from your continents.`;
-            cash += Math.floor(incomePlanets);
+            cash += Math.floor(incomePlanets/incomeMultiplier);
           }
         }
         if (numSoldiers > 0) {
           accessVarSoldiers += 1;
           move("progressSoldiersBar", (((accessVarSoldiers)%200/2)%100));
           if (accessVarSoldiers%200 == 0) {
-            power += incomeSoldiers;
+            power += incomeSoldiers/powerMultiplier;
             element2.innerHTML = "Power: " + friendlyNum(power);
           updateDocumentCounts();
           calculateIncome();
@@ -1415,7 +1418,7 @@ onmessage = function (event) {\
           accessVarBoats += 1;
           move("progressBoatsBar", (((accessVarBoats)%200/2)%100));
           if (accessVarBoats%200 == 0) {
-            power += incomeBoats;
+            power += incomeBoats/powerMultiplier;
             element2.innerHTML = "Power: " + friendlyNum(power);
           updateDocumentCounts();
           calculateIncome();
