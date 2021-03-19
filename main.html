@@ -4,7 +4,8 @@
 <head>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,800" rel="stylesheet">  <title>Score Game</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,800" rel="stylesheet"> 
+  <title>Score Game</title>
 </head>
 
 <body onselectstart="return false" class="body">
@@ -244,7 +245,7 @@
               <div id="buySoldier" style="display:none" onclick="buySoldiers(false)" class="buyButton">Buy 1 Soldiers</div>
               <div id="buySoldier2" style="display:none" onclick="buySoldiers(true)" class="buyButton2">Buy 2 Soldiers</div>
             </div>
-            <div id="boatsInfo" style="display:none" class="powerInfo">
+            <!-- <div id="boatsInfo" style="display:none" class="powerInfo">
               <h3>Boats</h3>
               <p>Boats are the next unit of power collection.</p>
               <p id="ownXBoats">You own 0 boats.</p>
@@ -255,7 +256,7 @@
               <div id="cantAffordBoat" style="display:none" class="cantAffordBuyButton">Can't Afford</div>
               <div id="buyBoat" style="display:none" onclick="buyThing(1000000, 3, 1, power, numBoats, 100, false, 'ownXBoats', 'ownXSoldiers', 'totalXBoats', 'totalXSoldiers', 'boats', 'soldiers', 'true')" class="buyButton">Buy 1 Boat</div>
               <div id="buyBoat2" style="display:none" onclick="buyThing(1000000, 3, 1, power, numBoats, 100, true, 'ownXBoats', 'ownXSoldiers', 'totalXBoats', 'totalXSoldiers', 'boats', 'soldiers', 'true')" class="buyButton2">Buy 2 Boats</div>
-            </div>
+            </div> -->
       </div>
     </div>
   </div>
@@ -486,177 +487,79 @@ onmessage = function (event) {\
     var powerIncome = 1;
     
     function changeDisplay(id, type) {
-      document.getElementById(id).style.display = type;
+      if (document.getElementById(id).style.display != type)
+      {
+        document.getElementById(id).style.display = type;
+      }
+    }
+
+    function changeBackgroundColor(id, color) {
+      if (document.getElementById(id).style.backgroundColor != color)
+      {
+        document.getElementById(id).style.backgroundColor = color;
+      }
     }
 
     function changeSectionBackground(which) {
-      if (which == "streets") {
-        document.getElementById("streets").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+      changeBackgroundColor("neighborhoods", "rgb(255,255,255)");
+      changeBackgroundColor("districts", "rgb(255,255,255)");
+      changeBackgroundColor("towns", "rgb(255,255,255)");
+      changeBackgroundColor("cities", "rgb(255,255,255)");
+      changeBackgroundColor("megacities", "rgb(255,255,255)");
+      changeBackgroundColor("counties", "rgb(255,255,255)");
+      changeBackgroundColor("states", "rgb(255,255,255)");
+      changeBackgroundColor("countries", "rgb(255,255,255)");
+      changeBackgroundColor("continents", "rgb(255,255,255)");
+      changeBackgroundColor("planets", "rgb(255,255,255)");
 
+      changeBackgroundColor("soldiers").style.backgroundColor = "rgb(255,255,255)";
+      changeBackgroundColor("boats").style.backgroundColor = "rgb(255,255,255)";
+      
+      if (which == "streets") {
+        changeBackgroundColor("streets", "rgba(185,185,185,0.15)");
       }
       else if (which == "neighborhoods") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
-      }
-      else if (which == "towns") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("neighborhoods","rgba(185,185,185,0.15)");
       }
       else if (which == "districts") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("districts","rgba(185,185,185,0.15)");
+      }
+      else if (which == "towns") {
+        changeBackgroundColor("towns","rgba(185,185,185,0.15)");
       }
       else if (which == "cities") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("cities","rgba(185,185,185,0.15)");
       }
       else if (which == "megacities") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("megacities","rgba(185,185,185,0.15)");
       }
       else if (which == "counties") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("counties","rgba(185,185,185,0.15)");
       }
       else if (which == "states") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("states","rgba(185,185,185,0.15)");
       }
       else if (which == "countries") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("countries","rgba(185,185,185,0.15)");
       }
       else if (which == "continents") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("planets").style.backgroundColor = "rgb(255,255,255)";
+        changeBackgroundColor("continents","rgba(185,185,185,0.15)");
       }
       else if (which == "planets") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("megacities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("counties").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("states").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("countries").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("continents").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("planets").style.backgroundColor = "rgba(185,185,185,0.15)";
+        changeBackgroundColor("planets","rgba(185,185,185,0.15)");
       }
       
       // End of income tabs
 
-      else if (which == "soldiers") {
-        document.getElementById("streets").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("neighborhoods").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("districts").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("cities").style.backgroundColor = "rgb(255,255,255)";
-        document.getElementById("soldiers").style.backgroundColor = "rgba(185,185,185,0.15)";
-        document.getElementById("towns").style.backgroundColor = "rgb(255,255,255)";
+      if (which == "soldiers") {
+        changeBackgroundColor("soldiers","rgba(185,185,185,0.15)");
+      }
+
+      else if (which == "boats") {
+        changeBackgroundColor("boats","rgba(185,185,185,0.15)");
       }
     }
+
     function showStreets() {
       changeDisplay("neighborhoodsInfo", "none");
       changeDisplay("streetsInfo", "inline-block");
@@ -985,29 +888,29 @@ onmessage = function (event) {\
     }
 
     function updateDocumentCounts() {
-      document.getElementById("planetsCount").innerHTML = friendlyNum(numPlanets);
-      document.getElementById("continentsCount").innerHTML = friendlyNum(numContinents);
-      document.getElementById("countriesCount").innerHTML = friendlyNum(numCountries);
-      document.getElementById("statesCount").innerHTML = friendlyNum(numStates);
-      document.getElementById("countiesCount").innerHTML = friendlyNum(numCounties);
-      document.getElementById("megacitiesCount").innerHTML = friendlyNum(numMegacities);
-      document.getElementById("citiesCount").innerHTML = friendlyNum(numCities);
-      document.getElementById("townsCount").innerHTML = friendlyNum(numTowns);
-      document.getElementById("districtsCount").innerHTML = friendlyNum(numDistricts);
-      document.getElementById("neighborhoodsCount").innerHTML = friendlyNum(numNeighborhoods);
-      document.getElementById("streetsCount").innerHTML = friendlyNum(numStreets);
+      if (document.getElementById("planetsCount").innerText != friendlyNum(numPlanets)) {
+        document.getElementById("planetsCount").innerHTML = friendlyNum(numPlanets);
+      }
+      if (document.getElementById("continentsCount").innerText != friendlyNum(numContinents)) {document.getElementById("continentsCount").innerHTML = friendlyNum(numContinents);}
+      if (document.getElementById("countriesCount").innerText != friendlyNum(numCountries)) {document.getElementById("countriesCount").innerHTML = friendlyNum(numCountries);}
+      if (document.getElementById("statesCount").innerText != friendlyNum(numStates)) {document.getElementById("statesCount").innerHTML = friendlyNum(numStates);}
+      if (document.getElementById("countiesCount").innerText != friendlyNum(numCounties)) {document.getElementById("countiesCount").innerHTML = friendlyNum(numCounties);}
+      if (document.getElementById("megacitiesCount").innerText != friendlyNum(numMegacities)) {document.getElementById("megacitiesCount").innerHTML = friendlyNum(numMegacities);}
+      if (document.getElementById("citiesCount").innerText != friendlyNum(numCities)) {document.getElementById("citiesCount").innerHTML = friendlyNum(numCities);}
+      if (document.getElementById("townsCount").innerText != friendlyNum(numTowns)) {document.getElementById("townsCount").innerHTML = friendlyNum(numTowns);}
+      if (document.getElementById("districtsCount").innerText != friendlyNum(numDistricts)) {document.getElementById("districtsCount").innerHTML = friendlyNum(numDistricts);}
+      if (document.getElementById("neighborhoodsCount").innerText != friendlyNum(numNeighborhoods)) {document.getElementById("neighborhoodsCount").innerHTML = friendlyNum(numNeighborhoods);}
+      if (document.getElementById("streetsCount").innerText != friendlyNum(numStreets)) {document.getElementById("streetsCount").innerHTML = friendlyNum(numStreets);}
 
-      (document.getElementById("heavyTanksCount").innerHTML) = friendlyNum(numHeavyTanks);
-      (document.getElementById("advancedPlanesCount").innerHTML) = friendlyNum(numAdvancedPlanes);
-      (document.getElementById("aircraftCarriersCount").innerHTML) = friendlyNum(numAircraftCarriers);
-      (document.getElementById("tanksCount").innerHTML) = friendlyNum(numTanks);
-      (document.getElementById("planesCount").innerHTML) = friendlyNum(numPlanes);
-      (document.getElementById("helicoptersCount").innerHTML) = friendlyNum(numHelicopters);
-      (document.getElementById("submarinesCount").innerHTML) = friendlyNum(numSubmarines);
-      (document.getElementById("boatsCount").innerHTML) = friendlyNum(numBoats);
-      (document.getElementById("soldiersCount").innerHTML) = friendlyNum(numSoldiers);
-      
-      document.getElementById("power").innerHTML = "Power: " + friendlyNum(power);
+      if (document.getElementById("heavyTanksCount").innerText != friendlyNum(numHeavyTanks)) {document.getElementById("heavyTanksCount").innerHTML = friendlyNum(numHeavyTanks);}
+      if (document.getElementById("advancedPlanesCount").innerText != friendlyNum(numAdvancedPlanes)) {document.getElementById("advancedPlanesCount").innerHTML = friendlyNum(numAdvancedPlanes);}
+      if (document.getElementById("aircraftCarriersCount").innerText != friendlyNum(numAircraftCarriers)) {document.getElementById("aircraftCarriersCount").innerHTML = friendlyNum(numAircraftCarriers);}
+      if (document.getElementById("tanksCount").innerText != friendlyNum(numTanks)) {document.getElementById("tanksCount").innerHTML = friendlyNum(numTanks);}
+      if (document.getElementById("planesCount").innerText != friendlyNum(numPlanes)) {document.getElementById("planesCount").innerHTML = friendlyNum(numPlanes);}
+      if (document.getElementById("helicoptersCount").innerText != friendlyNum(numHelicopters)) {document.getElementById("helicoptersCount").innerHTML = friendlyNum(numHelicopters);}
+      if (document.getElementById("submarinesCount").innerText != friendlyNum(numSubmarines)) {document.getElementById("submarinesCount").innerHTML = friendlyNum(numSubmarines);}
+      if (document.getElementById("boatsCount").innerText != friendlyNum(numBoats)) {document.getElementById("boatsCount").innerHTML = friendlyNum(numBoats);}
+      if (document.getElementById("soldiersCount").innerText != friendlyNum(numSoldiers)) {document.getElementById("soldiersCount").innerHTML = friendlyNum(numSoldiers);}
     }
 
     function showIncome() {
@@ -1088,7 +991,7 @@ onmessage = function (event) {\
       doFunction();
     }
     
-    function friendlyNum(num) {
+function friendlyNum(num) {
   var num = numberToString(num);
   var friendlyList = ["M", "B", "T", " Quad", " Quint", " Sext", " Sept", " Oct", " Non"];
   if (didntForLoop == undefined) {
@@ -1181,12 +1084,12 @@ onmessage = function (event) {\
         changeDisplay("buyStreet2","none");
         if (power >= 2) {
           if (power < Math.floor(cash/50)) {
-            document.getElementById("buyStreet2").innerText = "Buy " + friendlyNum(power) + " Streets";
+            document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(power) + " Streets";
             changeDisplay("buyStreet2","inline-block");
           }
           else if (cash>=100) {
             let toBuy = Math.floor(cash/50);
-            document.getElementById("buyStreet2").innerText = "Buy " + friendlyNum(toBuy) + " Streets";
+            document.getElementById("buyStreet2").innerHTML = "Buy " + friendlyNum(toBuy) + " Streets";
             changeDisplay("buyStreet2","inline-block");
           }
         }
@@ -1298,6 +1201,7 @@ onmessage = function (event) {\
       function change() {
         cash += Math.floor(incomeStreets/incomeMultiplier);
         element.innerHTML = "Wealth: $" + friendlyNum(cash);
+        element2.innerHTML = "Power: " + friendlyNum(power);
 
         updateDocumentCounts();
         calculateIncome();
@@ -1434,7 +1338,6 @@ onmessage = function (event) {\
         else {changeDisplay("progressTowns", "none");}
         if (numCities > 0) {changeDisplay("progressCities", "inline-block");}
         else {changeDisplay("progressCities", "none");}
-
         if (numMegacities > 0) {changeDisplay("progressMegacities", "inline-block");}
         else {changeDisplay("progressMegacities", "none");}
         if (numCounties > 0) {changeDisplay("progressCounties", "inline-block");}
